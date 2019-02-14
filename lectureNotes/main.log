@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  12 FEB 2019 19:32
+This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  14 FEB 2019 13:53
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.272 seconds
+luaotfload | main : initialization completed in 0.147 seconds
 Babel <3.10> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
@@ -1813,8 +1813,37 @@ File: images/lec6_shermanMorrison.png Graphic file (type png)
 Package luatex.def Info: images/lec6_shermanMorrison.png used on input line 138.
 
 (luatex.def)             Requested size: 344.99579pt x 211.79277pt.
- [15<./images/lec6_smallPivotsBad.png>])
-[16<./images/lec6_shermanMorrison.png>]
+ [15<./images/lec6_smallPivotsBad.png>]
+<images/lecture6_lu_special.png, id=180, 627.34375pt x 401.5pt>
+File: images/lecture6_lu_special.png Graphic file (type png)
+
+<use images/lecture6_lu_special.png>
+Package luatex.def Info: images/lecture6_lu_special.png used on input line 152.
+(luatex.def)             Requested size: 345.0114pt x 220.8073pt.
+ [16<./images/lec6_shermanMorrison.png><./images/lecture6_lu_special.png>]
+<images/lecture6_lu_reduced.png, id=187, 697.60625pt x 746.79pt>
+File: images/lecture6_lu_reduced.png Graphic file (type png)
+
+<use images/lecture6_lu_reduced.png>
+Package luatex.def Info: images/lecture6_lu_reduced.png used on input line 175.
+(luatex.def)             Requested size: 345.00214pt x 369.32603pt.
+ [17<./images/lecture6_lu_reduced.png>]
+<images/lecture7_least_squares_prelim.png, id=194, 511.9125pt x 328.22626pt>
+File: images/lecture7_least_squares_prelim.png Graphic file (type png)
+
+<use images/lecture7_least_squares_prelim.png>
+Package luatex.def Info: images/lecture7_least_squares_prelim.png used on input 
+line 192.
+(luatex.def)             Requested size: 345.00269pt x 221.2076pt.
+ [18<./images/lecture7_least_squares_prelim.png>] [19]
+<images/lecture7_least_squares_cond.png, id=211, 508.90125pt x 661.47125pt>
+File: images/lecture7_least_squares_cond.png Graphic file (type png)
+
+<use images/lecture7_least_squares_cond.png>
+Package luatex.def Info: images/lecture7_least_squares_cond.png used on input li
+ne 290.
+(luatex.def)             Requested size: 345.0155pt x 448.4521pt.
+ [20]) [21<./images/lecture7_least_squares_cond.png>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 12.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 12.
  (./main.aux)
@@ -1827,29 +1856,26 @@ Package rerunfilecheck Warning: File `main.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: F4CB4D0C448FB268A5E21F95E95A68B0;361
-(rerunfilecheck)             After:  49FEFF13EEC77AE9827A459A9B033EA5;289.
+(rerunfilecheck)             Before: 49FEFF13EEC77AE9827A459A9B033EA5;289
+(rerunfilecheck)             After:  C76F13884EC3AAE7D33E316F9B61413C;333.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 12.
 )
 
 Here is how much of LuaTeX's memory you used:
- 36707 strings out of 494481
+ 36771 strings out of 494481
  100000,1144653 words of node,token memory allocated
- 618 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 3 glue, 1 kern, 33 attribute, 58 glue_spec, 33 attr
+ 622 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 3 glue, 1 kern, 34 attribute, 58 glue_spec, 34 attr
 ibute_list, 1 write, 1 pdf_action nodes
-   avail lists: 1:17,2:619,3:159,4:45,5:226,6:2756,7:870,8:87,9:401,10:10,11:203
+   avail lists: 1:17,2:787,3:159,4:45,5:226,6:2756,7:870,8:87,9:431,10:14,11:203
 
- 39371 multiletter control sequences out of 65536+600000
- 98 fonts using 18256039 bytes
+ 39386 multiletter control sequences out of 65536+600000
+ 98 fonts using 18255783 bytes
  65i,15n,86p,1082b,883s stack positions out of 5000i,500n,10000p,200000b,100000s
 
 warning  (pdf backend): unreferenced destination with name 'Hfootnote.1'
 
-warning  (pdf backend): unreferenced destination with name 'subsubsection.2.0.1'
-
-
-warning  (pdf backend): unreferenced destination with name 'subsection.1.1'
+warning  (pdf backend): unreferenced destination with name 'subsection.5.1'
 </usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.ot
 f></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman6-regular.
 otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmmono10-regula
@@ -1862,10 +1888,10 @@ c/lm-math/latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentyp
 e/public/lm/lmroman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentyp
 e/public/lm/lmroman10-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/open
 type/public/lm/lmroman12-bold.otf>
-Output written on main.pdf (16 pages, 359168 bytes).
+Output written on main.pdf (21 pages, 546551 bytes).
 
-PDF statistics: 262 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
- 70 named destinations out of 1000 (max. 131072)
+PDF statistics: 304 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
+ 87 named destinations out of 1000 (max. 131072)
  64 words of extra memory for PDF output out of 10000 (max. 100000000)
 
