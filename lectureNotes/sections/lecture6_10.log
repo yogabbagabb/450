@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  9 FEB 2019 11:36
+This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  14 FEB 2019 13:52
  restricted system commands enabled.
 **lecture6_10.tex
 (./lecture6_10.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.161 seconds
+luaotfload | main : initialization completed in 0.153 seconds
 Babel <3.10> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/subfiles/subfiles.cls
 Document Class: subfiles 2012/05/23 Federico Garcia
@@ -1650,7 +1650,7 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 * 
 * Use \Uoverbracket and \Uunderbracket for original `unicode-math' definition.
 *************************************************
-<../images/lec6_resid.png, id=7, 150.5625pt x 36.135pt>
+<../images/lec6_resid.png, id=11, 150.5625pt x 36.135pt>
 File: ../images/lec6_resid.png Graphic file (type png)
 
 <use ../images/lec6_resid.png>
@@ -1683,21 +1683,21 @@ LaTeX Font Info:    Try loading font information for U+rsfs on input line 12.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-<../images/lec6_residBound.png, id=8, 626.34pt x 135.50626pt>
+<../images/lec6_residBound.png, id=12, 626.34pt x 135.50626pt>
 File: ../images/lec6_residBound.png Graphic file (type png)
 
 <use ../images/lec6_residBound.png>
 Package luatex.def Info: ../images/lec6_residBound.png used on input line 21.
 (luatex.def)             Requested size: 345.0137pt x 74.64238pt.
 
-<../images/lec6_residExample.png, id=9, 778.91pt x 394.47375pt>
+<../images/lec6_residExample.png, id=13, 778.91pt x 394.47375pt>
 File: ../images/lec6_residExample.png Graphic file (type png)
 
 <use ../images/lec6_residExample.png>
 Package luatex.def Info: ../images/lec6_residExample.png used on input line 29.
 (luatex.def)             Requested size: 344.99153pt x 174.71864pt.
 
-<../images/lec6_rowE.png, id=10, 493.845pt x 285.065pt>
+<../images/lec6_rowE.png, id=14, 493.845pt x 285.065pt>
 File: ../images/lec6_rowE.png Graphic file (type png)
 
 <use ../images/lec6_rowE.png>
@@ -1708,7 +1708,7 @@ Package luatex.def Info: ../images/lec6_rowE.png used on input line 33.
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}<../images
 /lec6_resid.png><../images/lec6_residBound.png><../images/lec6_residExample.png>
 ]
-<../images/lec6_elimM.png, id=24, 502.87875pt x 319.1925pt>
+<../images/lec6_elimM.png, id=28, 502.87875pt x 319.1925pt>
 File: ../images/lec6_elimM.png Graphic file (type png)
 
 <use ../images/lec6_elimM.png>
@@ -1732,42 +1732,42 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 5.99991pt on input line 65.
 (load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
 ric/fonts/otl/lmroman6-regular.luc)
-<../images/lec6_pivotfail.png, id=34, 450.68375pt x 261.97874pt>
+<../images/lec6_pivotfail.png, id=38, 450.68375pt x 261.97874pt>
 File: ../images/lec6_pivotfail.png Graphic file (type png)
 
 <use ../images/lec6_pivotfail.png>
 Package luatex.def Info: ../images/lec6_pivotfail.png used on input line 70.
 (luatex.def)             Requested size: 345.0195pt x 200.55699pt.
  [3<../images/lec6_pivotfail.png>]
-<../images/lec6_pivotres.png, id=47, 484.81125pt x 260.975pt>
+<../images/lec6_pivotres.png, id=51, 484.81125pt x 260.975pt>
 File: ../images/lec6_pivotres.png Graphic file (type png)
 
 <use ../images/lec6_pivotres.png>
 Package luatex.def Info: ../images/lec6_pivotres.png used on input line 85.
 (luatex.def)             Requested size: 345.01733pt x 185.72362pt.
 
-<../images/lec6_precond.png, id=48, 502.87875pt x 314.17375pt>
+<../images/lec6_precond.png, id=52, 502.87875pt x 314.17375pt>
 File: ../images/lec6_precond.png Graphic file (type png)
 
 <use ../images/lec6_precond.png>
 Package luatex.def Info: ../images/lec6_precond.png used on input line 90.
 (luatex.def)             Requested size: 344.99933pt x 215.5385pt.
  [4<../images/lec6_pivotres.png><../images/lec6_precond.png>] <../images/lec6_c
-ompCost.png, id=56, 514.92375pt x 319.1925pt>
+ompCost.png, id=60, 514.92375pt x 319.1925pt>
 File: ../images/lec6_compCost.png Graphic file (type png)
 
 <use ../images/lec6_compCost.png>
 Package luatex.def Info: ../images/lec6_compCost.png used on input line 111.
 (luatex.def)             Requested size: 345.00497pt x 213.86273pt.
 
-<../images/lec6_luBlocks.png, id=57, 507.8975pt x 311.1625pt>
+<../images/lec6_luBlocks.png, id=61, 507.8975pt x 311.1625pt>
 File: ../images/lec6_luBlocks.png Graphic file (type png)
 
 <use ../images/lec6_luBlocks.png>
 Package luatex.def Info: ../images/lec6_luBlocks.png used on input line 120.
 (luatex.def)             Requested size: 345.00925pt x 211.3693pt.
  [5<../images/lec6_compCost.png>]
-<../images/lec6_smallPivotsBad.png, id=63, 612.2875pt x 744.7825pt>
+<../images/lec6_smallPivotsBad.png, id=67, 612.2875pt x 744.7825pt>
 File: ../images/lec6_smallPivotsBad.png Graphic file (type png)
 
 <use ../images/lec6_smallPivotsBad.png>
@@ -1775,47 +1775,88 @@ Package luatex.def Info: ../images/lec6_smallPivotsBad.png used on input line 13
 1.
 (luatex.def)             Requested size: 344.99947pt x 419.65509pt.
  [6<../images/lec6_luBlocks.png>]
-<../images/lec6_shermanMorrison.png, id=70, 519.9425pt x 319.1925pt>
+<../images/lec6_shermanMorrison.png, id=74, 519.9425pt x 319.1925pt>
 File: ../images/lec6_shermanMorrison.png Graphic file (type png)
 
 <use ../images/lec6_shermanMorrison.png>
 Package luatex.def Info: ../images/lec6_shermanMorrison.png used on input line 1
 38.
 (luatex.def)             Requested size: 344.99579pt x 211.79277pt.
- [7<../images/lec6_smallPivotsBad.png>] [8<../images/lec6_shermanMorrison.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 149.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 149.
+ [7<../images/lec6_smallPivotsBad.png>] <../images/lecture6_lu_special.png, id=
+81, 627.34375pt x 401.5pt>
+File: ../images/lecture6_lu_special.png Graphic file (type png)
+
+<use ../images/lecture6_lu_special.png>
+Package luatex.def Info: ../images/lecture6_lu_special.png used on input line 15
+2.
+(luatex.def)             Requested size: 345.0114pt x 220.8073pt.
+ [8<../images/lec6_shermanMorrison.png><../images/lecture6_lu_special.png>]
+<../images/lecture6_lu_reduced.png, id=88, 697.60625pt x 746.79pt>
+File: ../images/lecture6_lu_reduced.png Graphic file (type png)
+
+<use ../images/lecture6_lu_reduced.png>
+Package luatex.def Info: ../images/lecture6_lu_reduced.png used on input line 17
+5.
+(luatex.def)             Requested size: 345.00214pt x 369.32603pt.
+ [9<../images/lecture6_lu_reduced.png>](load luc: /Users/anjaliagrawal/Library/t
+exlive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-regular.luc)(load
+ luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/generic/f
+onts/otl/lmroman12-bold.luc)
+<../images/lecture7_least_squares_prelim.png, id=95, 511.9125pt x 328.22626pt>
+File: ../images/lecture7_least_squares_prelim.png Graphic file (type png)
+
+<use ../images/lecture7_least_squares_prelim.png>
+Package luatex.def Info: ../images/lecture7_least_squares_prelim.png used on inp
+ut line 192.
+(luatex.def)             Requested size: 345.00269pt x 221.2076pt.
+(load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
+ric/fonts/otl/lmroman5-regular.luc) [10<../images/lecture7_least_squares_prelim.
+png>] [11]
+<../images/lecture7_least_squares_cond.png, id=116, 508.90125pt x 661.47125pt>
+File: ../images/lecture7_least_squares_cond.png Graphic file (type png)
+
+<use ../images/lecture7_least_squares_cond.png>
+Package luatex.def Info: ../images/lecture7_least_squares_cond.png used on input
+ line 290.
+(luatex.def)             Requested size: 345.0155pt x 448.4521pt.
+ [12] [13<../images/lecture7_least_squares_cond.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 294.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 294.
  (./lecture6_10.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 149.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 149.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 294.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 294.
 Package rerunfilecheck Info: File `lecture6_10.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 074FC352E906F76D41144CEAF5A38582;44.
 )
 
 Here is how much of LuaTeX's memory you used:
- 36659 strings out of 494481
+ 36746 strings out of 494481
  125070,1144653 words of node,token memory allocated
- 519 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 3 glue, 1 kern, 12 attribute, 58 glue_spec, 12 attr
+ 541 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 3 glue, 1 kern, 14 attribute, 59 glue_spec, 14 attr
 ibute_list, 1 write nodes
-   avail lists: 1:18,2:239,3:80,4:18,5:95,6:797,7:296,8:61,9:121,10:6,11:80
- 39350 multiletter control sequences out of 65536+600000
- 92 fonts using 17471255 bytes
- 74i,8n,88p,866b,477s stack positions out of 5000i,500n,10000p,200000b,100000s
+   avail lists: 1:18,2:787,3:112,4:23,5:170,6:1347,7:739,8:61,9:431,10:14,11:112
+
+ 39372 multiletter control sequences out of 65536+600000
+ 95 fonts using 17866255 bytes
+ 74i,10n,88p,866b,479s stack positions out of 5000i,500n,10000p,200000b,100000s
 
 warning  (pdf backend): unreferenced destination with name 'Hfootnote.1'
-</usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.ot
-f></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman6-regular.
-otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman7-regula
-r.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/latinmod
-ern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/l
-atinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm
-/lmroman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm
-/lmroman10-regular.otf>
-Output written on lecture6_10.pdf (8 pages, 294606 bytes).
+</usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/latinmodern-ma
+th.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman10-it
+alic.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman12-
+bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman8-r
+egular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman6
+-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroma
+n7-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math
+/latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/
+lm-math/latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/
+public/lm/lmroman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/
+public/lm/lmroman10-regular.otf>
+Output written on lecture6_10.pdf (13 pages, 490663 bytes).
 
-PDF statistics: 128 PDF objects out of 1000 (max. 8388607)
- 72 compressed objects within 1 object stream
- 18 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 199 PDF objects out of 1000 (max. 8388607)
+ 120 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 131072)
+ 24 words of extra memory for PDF output out of 10000 (max. 100000000)
 

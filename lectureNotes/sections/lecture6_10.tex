@@ -146,6 +146,151 @@ For
 
 And $\inv{A}x$ for any $x$ is an $O(n^2)$ operation. The only other operation in this formula is to compute a dot product.
 \end{remark}
+
+\begin{remark}
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture6_lu_special}
+    \end{center}
+
+    A matrix $A$ always admits an LU factorization, even if $A$
+    is singular. First, observe that every column of $A$ must contain
+    at least one non-zero number -- or else, why would the column
+    be part of $A$. Thus, if a pivot entry does not contain a non-zero
+    value, we can rotate rows so that the pivot entry does have
+    a non-zero value. We then can apply elimination matrices, as needed,
+    until all row values in the pivot's column are $0$. 
+
+    The foregoing tells us that there still exists a sequence of
+    permutations and elimination matrices that bring $A$ into upper
+    triangular form. Since these matrices are each invertible, it follows that $L$ is still invertible. Since $\abs{PA} = 0$, we must have, therefore, $\abs{U} = 0$, which means that $0$ must occupy some diagonal entry of $U$.
+
+    Why? A matrix fails to be invertible iff $0$ is an eigenvalue. $0$ is an eigenvalue iff some entry on the diagonal is $0$, because the eigenvalues of a triangular matrix are precisely its diagonal entries.
+
+    Why are permutation matrices invertible? Group theory promises us that some power of a permutation brings it back to the identity. That is $P^k = I$ for some $I$. Thus $\inv{P} = P^{k-1}$.
+\end{remark}
+
+\begin{remark}
+    Why can we take an $LU$ decomposition and then reduce it, as shown below?
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture6_lu_reduced}
+    \end{center}
+
+    If $m > n$, applying elimination matrices that use row $n+1$ is a no-op, since the use of row $n$ has (along with prior use of rows $1 \dots n-1$) already made row $n+1$ be entirely $0$. or if $n > m$. As a consequence, in the unreduced LU factorization (the first and third pictures above), we see that every column in $\left\{ n+1 \dots m \right\}$ is really just $0$ except at a diagonal entry (where it is $1$). As the picture points out, however, determinining what exists in the unreduced $L$ is not useful, since $A = LU$ where $L = [Q B]$ and $U = \begin{bmatrix}
+        Q' \\
+        B' \\
+    \end{bmatrix}$ where $Q = m \times n$, $B = m \times m-n$, $Q' = n \times n$ and $B' = m -n \times n$. Since $BB' = \mathbb{0}$, there is no need to store $B$ or $B'$.
+
+    Using similar reasoning, we can understand the case that $n > m$.
+\end{remark}
+
+\section{Lecture 7}{Least Squares}
+\begin{remark}
+    We assume that we work with tall, skinny matrices that have full column rank.
+\end{remark}
+\begin{remark}
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture7_least_squares_prelim}
+    \end{center}
+    The textbook proves that there is always a unique vector $y \in \text{Span}(A)$ such that $\phi(y) = \norm{b - y}^2$ is minimal; as a consequence, there is at least one vector $x \in \R^m$ where $A$ is $\R^{n \times m}$ that minimizes $Ax \approx b$. This vector $x$ is unique iff $A$ is full rank.
+\end{remark}
+
+\begin{definition}
+    A matrix $P$ is a projection if $P^2 = P$. A matrix is an orthogonal projection if $P^2 = P$ and $P^T = P$.
+\end{definition}
+
+\begin{proposition}
+    If $P$ is an orthogonal projection, then the span of $P_{\perp} = (I - P)$ is orthogonal to the span of $P$.
+\end{proposition}
+\begin{proof}
+    Given $x,y \in \R^n$, we see that
+
+    \begin{align*}
+        \inner{Px, (I - P)y} \\
+        = \inner{Px, y - Py} \\
+        = \inner{Px, y} - \inner{Px, Py} \\
+        = \inner{Px, y} - \inner{x, Py} \\
+        = 0
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    Given an orthogonal projection $P$, any vector $x$ can be expressed as $x = Px + P_{\perp}x$.
+\end{corollary}
+
+\begin{proposition}
+    The vector $x$ satisfying $\min_{x \in \R^n} \norm{Ax - b}_2$ is precisely the $x$ such that $Ax = Pb$ where $P$ is a projection onto $A$.
+\end{proposition}
+
+\begin{proof}
+    Note that in what follows, all norms refer to the $2$ norm.
+    \begin{align*}
+        \norm{Ax - b} = \norm{P(Ax -b) + P_{\perp}(Ax - b)} \\
+        \intertext{Since $P$ and $P_{\perp}$ map to orthogonal subspaces, we can apply the Pythagorean theorem} \\
+        = \norm{P(Ax -b)} + \norm{P_{\perp}(Ax - b)} \\
+        = \norm{P(Ax -b)} + \norm{-P_{\perp}b} \\
+        = \norm{P(Ax -b)} + \norm{P_{\perp}b} \\
+        = \norm{(Ax - Pb)} + \norm{P_{\perp}b} \\
+        \intertext{The RHS is fixed, so we can only minimize the LHS} \\
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    The $x$ aforementioned is $\inv{(A^TA)}A^Tb$ 
+\end{corollary}
+\begin{proof}
+    \begin{align*}
+        Ax = Pb \\
+        \iff A^TAx = A^TPb \\
+        \iff A^TAx = (PA)^Tb \\
+        \iff A^TAx = (A)^Tb \\
+        \iff x = \inv{(A^TA)}(A)^Tb \\
+    \end{align*}
+\end{proof}
+
+\begin{proposition}
+    $P = \inv{(A^TA)}A^T$ is an orthogonal projection, assuming
+    that $A$ has full column rank.
+\end{proposition}
+\begin{proof}
+    Verify to yourself that it is symmetric and $P^2 = P$. Also verify that $\text{span}(P) = \text{span}(A)$.
+\end{proof}
+
+\begin{corollary}
+    The $x$ aformentioned is orthogonal to $b- Ax$, the residual.
+\end{corollary}
+
+\begin{proof}
+    \begin{align*}
+        b = Pb + P_{\perp}b \\
+        \intertext{Substitute the definition of $x$ and $P$ found above}  \\
+        b = Ax + (b - Ax) \\
+    \end{align*}
+\end{proof}
+
+\begin{proposition}
+    Suppose we know that the columns of $Q \in \R^{m \times n}$ form an orthonormal basis for $\text{span}(A)$. Then $QQ^T$ is an orthogonal projector for $A$.
+\end{proposition}
+\begin{proof}
+    $(QQ^T)(QQ^T) = QQ^T$. Thus, this matrix is a projection; is it also clearly symmetric; finally, note that its span is precisely the span of $A$.
+\end{proof}
+
+\begin{corollary}
+    With $Q$ as above and $P = QQ^T$, then the optimal $x$ satisfying $Ax \approx b$ is $Ax = Pb$. Leftmulitply both sides by $Q^T$ to obtain
+
+    \[
+        Q^TAx = Q^Tb
+    \]
+
+    If we do this, we can avoid the hassle of using the normal equations.
+\end{corollary}
+
+\begin{definition}
+    I take the following as definitions. No time to look into their proofs:
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture7_least_squares_cond}
+    \end{center}
+\end{definition}
+
 \end{document}
 
 
