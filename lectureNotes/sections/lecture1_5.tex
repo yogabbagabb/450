@@ -348,6 +348,76 @@ The following questions were prelecture questions:
 
 \section{Lecture 4}
 
+\subsection{Quiz}
+\pp{1}
+Estimating Output Error with Condition Numbers
+A function f(x) has a condition number of $2.3×10^2$. For x=65 with an absolute error Δx=5×10−5, what is an upper bound on the relative error of the output?
+
+TIP: On any quiz/exam question where you are asked to enter a number, you can also enter an expression, which will be evaluated for you. No need to bring out the calculator. (I.e. in the box below, you could simply enter "100*13", which would count the same as entering "1300".)
+
+Make sure your answer has at least two accurate digits.
+
+\begin{solution}
+    Relative Error <= Relative Input Error * Condition Number
+    Relative Error <= (Machine Epsilon or some problem specific relative input error) * condition Number
+    <= $(5 * 10^-5)/(65) * 2.3 * 10^2$
+\end{solution}
+
+\pp{2}
+
+Floating Point Rounding
+What is the value of 2‾√×π when calculated in a decimal floating point system with 3 digits that uses rounding? (Apply rounding to both the input data and the result of the arithmetic.)
+
+\begin{solution}
+    $\sqrt{2} \approx 1.41$ and $\pi \approx 3.14$. Multiply both and round to $3$ decimal places.
+\end{solution}
+
+\pp{3}
+In a normalized floating point system that supports subnormal numbers, which of the following binary operations on two positive numbers could lead to overflow?
+
+\begin{solution}
+    Addition, Multiplication and Division can all lead numbers to explode outside of the normalized floating number range.
+
+    If two addends are already normalized floating point numbers, however, then there is no chance that subtracting these numbers can lead to a result that is not a normalized floating point\footnote{Recall that a normalized floating point number has $1$ in the fractional part before the significand.}
+\end{solution}
+
+\pp{4}
+1 point
+Machine Epsilon and UFL
+Which of the following statements are true?
+
+Select all that apply:
+Machine epsilon places a lower bound on the magnitude of normal floating point numbers.
+Machine epsilon is determined by the number of bits in the significand.
+Machine epsilon places an upper bound on the relative error of representing a real number in a floating point format.
+The UFL is determined by the number of bits in the exponent.
+
+\begin{solution}
+    The bottom $3$ are correct; the first is wrong, because the magnitude of normal floating point numbers is determined by the exponent range; the second is correct, because machine epsilon is $\beta^{-(p-1)}$ where $\beta$ is a base and $p$ a precision; the third is correct, because given a floating point number $y$, the smallest perturbation to $y$ that results in a different floating point number is $\e \abs{y}$. The fourth is correct, because the order of magnitude of UFL is $\beta^{L+1}$ where the exponent range falls in $\left[ L,U \right]$.
+\end{solution}
+
+\pp{5}
+Floating Point Relative Error
+Which of the following is closest to the relative error from representing $e×2−145$ in IEEE single precision.
+
+\begin{solution}
+    Notice that $e \times 2^{-145}$ is subnormal number. The underflow limit for single precision IEEE floating point numbers is $2^{-126}$. Anything smaller requires that the leading $1$ be shifted along the fractional part of a number. Since $e \times 2^{-145} \approx 2^{-144}$, it follows that we need to shift the leading $1$ $18$ units to the right of the decimal. This will leave $5$ digits (bits) in the fractional component for futher reprsentation. If we have $n$ digits, then our relative error is approximately $\beta^{-n}$. Whence, the relative error here is $2^{-5}$.
+\end{solution}
+
+\pp{6}
+Properties of Floating Point Operations
+Which of the following is true for floating point multiplication and addition?
+Select all that apply:
+Floating point addition is associative.
+Floating point multiplication is commutative.
+Floating point multiplication is associative.
+Floating point addition is commutative.
+\begin{solution}
+    Floating point multiplication and addition are commutative but not associative.
+\end{solution}
+
+I skip problem 7 -- if you understood the solution to an earlier problem, you'll be okay.
+
 \begin{example}
     To perform floating point addition, suppose that you have
     $b_0.b_1 \dots b_n \times 2^{x}$ and 
@@ -463,14 +533,27 @@ The following questions were prelecture questions:
         \]
         \2 $\norm{A + B} \leq \norm{A} + \norm{B}$.
         \2 $\norm{A \inv{A}} = 1 \leq \norm{A} \norm{\inv{A}} \implies 1 \leq k(A)$
-        \1 $k(\gamma A) = \gamma k(A)$.
+        \1 $k(\gamma A) =  k(A)$.
+        \1 $\norm{\gamma A} =  \gamma \norm{A}$.
+        \1 $k(A) = \max_{x \not = 0} \frac{\norm{Ax}}{\norm{x}} (\min_{x \not = 0}\frac{\norm{Ax}}{\norm{x}})^{-1}$
+        \2 
+        \begin{align*}
+            \intertext{By definition:} \\
+            \norm{\inv{A}} = \max_{x \not = 0}\frac{\norm{\inv{A}x}}{\norm{x}} \\
+            \intertext{Let $y = \inv{A}x$, meaning that $Ay = x$. Then} \\
+            = \max_{x \not = 0}\frac{\norm{y}}{\norm{Ay}} \\
+            \intertext{Since $y = \inv{A}y$, we can consider the $\max$ over $y$ instead of $x$:} \\
+            = \max_{y \not = 0}\frac{\norm{y}}{\norm{Ay}} \\
+            = \inv{(\min_{y \not = 0}\frac{\norm{Ay}}{\norm{y}})} \\
+        \end{align*}
         \1 If $D$ is a diagonal matrix, then $k(D) = \frac{\max{d_{i,i}}}{\min_{d_{i,i}}}$
+        \1 An orthogonal matrix has norm $1$ in any norm.
     \end{outline}
 \end{proposition}
 
 \begin{remark}
     A computational technique to evaluating a condition number is multiply a matrix $A$ by many vectors that have unit norm and take
-    the maximum such norm. A visualization of the resultant vectors also shows (UNRESOLVED page 55). 
+    the maximum norm of the resultant vectors divided by the minimum norm of the resultant vectors.
 \end{remark}
 
 
