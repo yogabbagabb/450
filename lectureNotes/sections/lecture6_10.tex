@@ -496,6 +496,127 @@ kkkkkk
     If $Q$ is orthogonal, then $\norm{v} = \norm{Qv}$.
 \end{remark}
 
+\subsection{Householder Transformations}
+
+
+\begin{remark}
+    Recall that a matrix is orthogonal iff its transpose is its inverse.
+    This means that both the rows and columns of the matrix, say $Q$, constitute an orthonormal set: the vectors are pairwise orthonormal, and they each have unit length.
+\end{remark}
+\begin{definition}
+    
+\end{definition}
+
+\section{Lecture 9}{Problem Transformations II}
+
+\section{Lecture 10}{SVD}
+
+\begin{definition}
+    Every matrix admits a decomposition:
+
+    \[
+        A = U \Sigma V^T
+    \]
+
+    The reduced SVD is the same decompositon but $\Sigma$ is reduced
+    to be the small as possible.
+
+    Entries of $U$ are called left singular vectors, entries in $\Sigma$ are singular values. Entries in $V^T$ can
+\end{definition}
+
+\begin{theorem}
+    If $\norm{A} = \norm{\Sigma} = \sigma_1$ where $\sigma_1$ is the largest diagonal entry in $\Sigma$.
+\end{theorem}
+
+\begin{remark}
+    If a singular value appearing in $\Sigma$ is negative, can it be made positive?
+\end{remark}
+\begin{solution}
+    Yes, flip an appropriate singular vector in sign. UNRESOLVED.
+\end{solution}
+
+\begin{proposition}
+    Take it for granted that $\norm{A}_2 = \sigma_1$. Given this, $k(A) = \frac{\sigma_1}{\sigma_{\min{m,n}}}$
+\end{proposition}
+
+\begin{proof}
+    The inverse matrix will have all singular values of $A$ reciprocated.
+\end{proof}
+
+\begin{proposition}
+   The null space of $V^T$ is given by the rows of $V^T$ corresponding to the singular values of $A$ (ie the values in $\Sigma$) that are $0$.
+\end{proposition}
+\begin{proof}
+    Let these rows be collected in the set $V$. We argue
+    that $V \s \mc{N}(A)$. Just hit $A$ by each $v_i \in V$.
+\end{proof}
+
+\begin{proposition}
+    The rank of $A$ is given by the number of singular values
+    that are not zero.
+\end{proposition}
+\begin{proof}
+    $U$ and $V^T$ are full rank, so they cannot cause the rank to change. Only $\Sigma$ can.
+\end{proof}
+
+\begin{remark}
+    Rank is not robust to rounding error. Suppose we have a rank one matrix; then introduce rounding error (each entry in the matrix has $\e_{mach}$ added or subtracted from it. By doing this, it is conceivable that the rank of the matrix is changed significantly. Far better, as a consequence, is to compute the numerical rank, which asks how many singular values fall above a tolerance. That is, for $\sigma \in \Sigma$, determine whether $\abs{\sigma} > \e$.
+\end{remark}
+
+\begin{theorem}{Eckhart Young Mirsky}
+   The best $k$ rank approximation to $A$ is given by
+   \[
+       A_k = \sum_{i=1}^{k}\sigma_{i}u_{i}v_{i}^T
+   \]
+\end{theorem}
+\begin{remark}
+       Convince yourself that the summation above is the matrix
+       that one obtains by, alternatively, zeroing all but the first
+       $k$ diagonal entries of $\Sigma$ and then multiplying out
+       $U \Sigma V^T$.
+\end{remark}
+
+\begin{remark}
+    Using a $k$ rank approximation is not unambiguously good, for computation of the SVD requires $O(n^3)$ time.
+\end{remark}
+
+\begin{unresolved}
+    If $A_k$ is the best $k$ rank approximation to $A$, is it the case that
+
+    \[
+        \norm{A_k - A}
+    \]
+
+    is the norm of the matrix obtained by zeroing out the first $k$ singular values of $A$.
+\end{unresolved}
+
+\begin{theorem}
+    
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        U \Sigma V^T x \cong b \\
+        \Sigma (V^Tx) \cong U^T b\\
+        \Sigma y \cong U^T b \\
+        \intertext{Solve for $y$} \\
+        y_i = (U^Tb)_i/\sigma_i \text{ for } i\in [k]\\
+        y_i = 0 \text{ ow }\\
+    \end{align*}
+
+    Then solve for $x$ where $V^Tx = y$. Note that $y$ is the optimal of all vectors $\hat{y}$ that solve $\Sigma \hat{y} \cong U^Tb$. It follows that $x$ is the minimal of all vectors that solve $Ax \cong b$ since $x = Vy$, meaning that $\norm{x}_2 = \norm{y}_2$.
+\end{proof}
+
+\begin{definition}
+    The solution to the total least squares problem
+
+    is $V \Sigma^{+} U^T b$ where $\Sigma^{+}$ is computed by reciprocating singular values in their spots (save those singular values that are $0$.
+\end{definition}
+
+\begin{remark}
+    Remember the cost of householder for nonsquare
+    and perhaps the cost for all $n \times n$ matrix.
+\end{remark}
+
 \end{document}
 
 

@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  9 OCT 2018 08:10
+This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  26 FEB 2019 23:02
  restricted system commands enabled.
 **lecture11_15.tex
 (./lecture11_15.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.144 seconds
+luaotfload | main : initialization completed in 0.246 seconds
 Babel <3.10> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/subfiles/subfiles.cls
 Document Class: subfiles 2012/05/23 Federico Garcia
@@ -1393,13 +1393,25 @@ File: pgflibraryshapes.multipart.code.tex 2010/01/07 v3.0.1a (rcs-revision 1.2)
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.1a (rcs-revision 1.7)
 ))
-(/Users/anjaliagrawal/Library/texmf/tex/latex/local/446_preamble.sty)
+(/Users/anjaliagrawal/Library/texmf/tex/latex/local/446_preamble.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box86
+\UL@hyphenbox=\box87
+\UL@skip=\skip61
+\UL@hook=\toks53
+\UL@height=\dimen271
+\UL@pe=\count195
+\UL@pixel=\dimen272
+\ULC@box=\box88
+Package: ulem 2012/05/18
+\ULdepth=\dimen273
+))
 (/usr/local/texlive/2017/texmf-dist/tex/latex/subfiles/subfiles.sty
 Package: subfiles 2012/05/23 Federico Garcia
 )))
-No file lecture11_15.aux.
-
+(./lecture11_15.aux)
 \openout1 = lecture11_15.aux
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
@@ -1418,19 +1430,20 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
+
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count195
-\scratchdimen=\dimen271
-\scratchbox=\box86
-\nofMPsegments=\count196
-\nofMParguments=\count197
-\everyMPshowfont=\toks53
-\MPscratchCnt=\count198
-\MPscratchDim=\dimen272
-\MPnumerator=\count199
-\makeMPintoPDFobject=\count266
-\everyMPtoPDFconversion=\toks54
+\scratchcounter=\count196
+\scratchdimen=\dimen274
+\scratchbox=\box89
+\nofMPsegments=\count197
+\nofMParguments=\count198
+\everyMPshowfont=\toks54
+\MPscratchCnt=\count199
+\MPscratchDim=\dimen275
+\MPnumerator=\count266
+\makeMPintoPDFobject=\count267
+\everyMPtoPDFconversion=\toks55
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -1449,7 +1462,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box87
+\AtBeginShipoutBox=\box90
 Package hyperref Info: Link coloring OFF on input line 3.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -1458,11 +1471,13 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count267
+\c@section@level=\count268
 )
 LaTeX Info: Redefining \ref on input line 3.
 LaTeX Info: Redefining \pageref on input line 3.
 LaTeX Info: Redefining \nameref on input line 3.
+
+(./lecture11_15.out) (./lecture11_15.out)
 \@outlinefile=\write5
 
 \openout5 = lecture11_15.out
@@ -1476,13 +1491,13 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )(load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gen
 eric/fonts/otl/latinmodern-math.luc)
-\g__fontspec_family_latinmodern-math.otf_int=\count268
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+\g__fontspec_family_latinmodern-math.otf_int=\count269
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+luaotfload | aux : no font with id 19
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
+luaotfload | aux : no font with id 19
 .................................................
 . fontspec info: "defining-font"
 . 
@@ -1513,12 +1528,12 @@ LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> TU/latinmodern-math.otf(0)/bx/n on inpu
 t line 3.
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+luaotfload | aux : no font with id 19
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
+luaotfload | aux : no font with id 19
 .................................................
 . fontspec info: "defining-font"
 . 
@@ -1577,12 +1592,12 @@ LaTeX Font Info:    Encoding `U' has changed to `TU' for symbol font
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  U/MnSymbolF/b/n --> TU/latinmodern-math.otf(1)/bx/n on i
 nput line 3.
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
-luaotfload | aux : font no 18 (nil) does not define feature smcp for script math
+luaotfload | aux : no font with id 19
+luaotfload | aux : font no 19 (nil) does not define feature smcp for script math
  with language dflt
-luaotfload | aux : no font with id 18
+luaotfload | aux : no font with id 19
 .................................................
 . fontspec info: "defining-font"
 . 
@@ -1638,140 +1653,64 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
 ric/fonts/otl/lmroman12-regular.luc)(load luc: /Users/anjaliagrawal/Library/texl
 ive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc)
-<../images/lecture9_general_loss.png, id=7, 560.0925pt x 80.3pt>
-File: ../images/lecture9_general_loss.png Graphic file (type png)
-
-<use ../images/lecture9_general_loss.png>
-Package luatex.def Info: ../images/lecture9_general_loss.png used on input line 
-9.
-(luatex.def)             Requested size: 345.01462pt x 49.46445pt.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.00015pt on input line 15.
+(Font)              scaled to size 10.00015pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0001pt on input line 15.
+(Font)              scaled to size 7.0001pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.00008pt on input line 15.
+(Font)              scaled to size 5.00008pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.99985pt on input line 15.
+(Font)              scaled to size 9.99985pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.9999pt on input line 15.
+(Font)              scaled to size 6.9999pt on input line 29.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 4.99992pt on input line 15.
-LaTeX Font Info:    Try loading font information for U+msa on input line 15.
+(Font)              scaled to size 4.99992pt on input line 29.
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 15.
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 15.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 29.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
-<../images/lecture9_quiz.png, id=8, 582.175pt x 120.45pt>
-File: ../images/lecture9_quiz.png Graphic file (type png)
+) [1
 
-<use ../images/lecture9_quiz.png>
-Package luatex.def Info: ../images/lecture9_quiz.png used on input line 60.
-(luatex.def)             Requested size: 345.0082pt x 71.381pt.
- [1
-
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}<../images
-/lecture9_general_loss.png>]
-<../images/lecture9_quiz_reex.png, id=25, 710.655pt x 362.35374pt>
-File: ../images/lecture9_quiz_reex.png Graphic file (type png)
-
-<use ../images/lecture9_quiz_reex.png>
-Package luatex.def Info: ../images/lecture9_quiz_reex.png used on input line 81.
-
-(luatex.def)             Requested size: 345.00342pt x 175.91275pt.
-
-<../images/lecture9_quiz_vis.png, id=26, 677.53125pt x 353.32pt>
-File: ../images/lecture9_quiz_vis.png Graphic file (type png)
-
-<use ../images/lecture9_quiz_vis.png>
-Package luatex.def Info: ../images/lecture9_quiz_vis.png used on input line 88.
-(luatex.def)             Requested size: 345.00911pt x 179.91586pt.
- [2<../images/lecture9_quiz.png><../images/lecture9_quiz_reex.png>]
-<../images/lecture9_exhaustive_search.png, id=34, 600.2425pt x 341.275pt>
-File: ../images/lecture9_exhaustive_search.png Graphic file (type png)
-
-<use ../images/lecture9_exhaustive_search.png>
-Package luatex.def Info: ../images/lecture9_exhaustive_search.png used on input 
-line 98.
-(luatex.def)             Requested size: 345.00853pt x 196.15869pt.
-
-<../images/lecture9_dp.png, id=35, 722.7pt x 303.1325pt>
-File: ../images/lecture9_dp.png Graphic file (type png)
-
-<use ../images/lecture9_dp.png>
-Package luatex.def Info: ../images/lecture9_dp.png used on input line 104.
-(luatex.def)             Requested size: 344.99533pt x 144.70638pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--111
-
- []
-
-[3<../images/lecture9_quiz_vis.png><../images/lecture9_exhaustive_search.png><..
-/images/lecture9_dp.png>]
-<../images/lecture9_dp_formal.png, id=44, 711.65875pt x 389.455pt>
-File: ../images/lecture9_dp_formal.png Graphic file (type png)
-
-<use ../images/lecture9_dp_formal.png>
-Package luatex.def Info: ../images/lecture9_dp_formal.png used on input line 121
-.
-(luatex.def)             Requested size: 344.9912pt x 188.7963pt.
-
-<../images/lecture9_dp_summary.png, id=45, 700.6175pt x 414.54875pt>
-File: ../images/lecture9_dp_summary.png Graphic file (type png)
-
-<use ../images/lecture9_dp_summary.png>
-Package luatex.def Info: ../images/lecture9_dp_summary.png used on input line 13
-3.
-(luatex.def)             Requested size: 345.00537pt x 204.13641pt.
- [4<../images/lecture9_dp_formal.png>]
-[5<../images/lecture9_dp_summary.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 136.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 136.
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 39.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 39.
  (./lecture11_15.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 136.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 136.
-
-
-Package rerunfilecheck Warning: File `lecture11_15.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `lecture11_15.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  8673B45308BF834FB06B97F2377B3C8F;72.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 39.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 39.
+Package rerunfilecheck Info: File `lecture11_15.out' has not changed.
+(rerunfilecheck)             Checksum: 04B9883329172CEFA071159466664053;45.
 )
 
 Here is how much of LuaTeX's memory you used:
- 36410 strings out of 494481
+ 36397 strings out of 494481
  125070,1144653 words of node,token memory allocated
- 517 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 11 attribute, 58 glue_spec, 11 attr
-ibute_list, 1 write nodes
-   avail lists: 1:13,2:373,3:77,4:18,5:199,6:1176,7:442,8:54,9:260,10:7,11:111
- 39226 multiletter control sequences out of 65536+600000
- 62 fonts using 11188199 bytes
- 74i,15n,88p,867b,484s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 488 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 6 attribute, 58 glue_spec, 6 attrib
+ute_list, 1 write nodes
+   avail lists: 1:20,2:308,3:73,4:26,5:133,6:1112,7:370,8:19,9:96,10:2,11:122
+ 39281 multiletter control sequences out of 65536+600000
+ 63 fonts using 11232551 bytes
+ 74i,6n,88p,867b,343s stack positions out of 5000i,500n,10000p,200000b,100000s
 </usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/latinmodern-ma
 th.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/latinmo
-dern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/
-latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/l
-m/lmroman10-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/publi
-c/lm/lmroman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/publi
-c/lm/lmroman12-bold.otf>
-Output written on lecture11_15.pdf (5 pages, 231658 bytes).
+dern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmrom
+an10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmrom
+an10-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lm
+roman12-bold.otf>
+Output written on lecture11_15.pdf (1 page, 18911 bytes).
 
-PDF statistics: 96 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 62 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 131072)
+ 24 words of extra memory for PDF output out of 10000 (max. 100000000)
 
