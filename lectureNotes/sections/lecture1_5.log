@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  16 FEB 2019 10:09
+This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2017.5.23)  7 MAR 2019 12:22
  restricted system commands enabled.
 **lecture1_5.tex
 (./lecture1_5.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.145 seconds
+luaotfload | main : initialization completed in 0.158 seconds
 Babel <3.10> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/subfiles/subfiles.cls
 Document Class: subfiles 2012/05/23 Federico Garcia
@@ -1654,104 +1654,103 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 ric/fonts/otl/lmroman12-regular.luc)(load luc: /Users/anjaliagrawal/Library/texl
 ive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc)
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.00015pt on input line 39.
+(Font)              scaled to size 10.00015pt on input line 9.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0001pt on input line 39.
+(Font)              scaled to size 7.0001pt on input line 9.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.00008pt on input line 39.
+(Font)              scaled to size 5.00008pt on input line 9.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.99985pt on input line 39.
+(Font)              scaled to size 9.99985pt on input line 9.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.9999pt on input line 39.
+(Font)              scaled to size 6.9999pt on input line 9.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 4.99992pt on input line 39.
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+(Font)              scaled to size 4.99992pt on input line 9.
+LaTeX Font Info:    Try loading font information for U+msa on input line 9.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 9.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 39.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 9.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
-<../images/backward_error.png, id=27, 365.365pt x 151.56625pt>
+) [1
+
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<../images/backward_error.png, id=47, 365.365pt x 151.56625pt>
 File: ../images/backward_error.png Graphic file (type png)
 
 <use ../images/backward_error.png>
-Package luatex.def Info: ../images/backward_error.png used on input line 65.
+Package luatex.def Info: ../images/backward_error.png used on input line 76.
 (luatex.def)             Requested size: 345.0153pt x 143.12447pt.
- [1
-
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}](load luc
-: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/generic/fonts
-/otl/lmroman7-regular.luc)(load luc: /Users/anjaliagrawal/Library/texlive/2017/t
-exmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc) [2<../images/backw
-ard_error.png>] [3]
-Overfull \hbox (0.47433pt too wide) in paragraph at lines 200--202
+(load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
+ric/fonts/otl/lmroman7-regular.luc)(load luc: /Users/anjaliagrawal/Library/texli
+ve/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc) [2<../ima
+ges/backward_error.png>] [3]
+Overfull \hbox (0.47433pt too wide) in paragraph at lines 211--213
 []\TU/lmr/m/n/10 Ap-prox-i-mate $[]$ by $\l_fontspec_font 1 + 𝑥/2$\TU/lmr/m/
 n/10 .
  []
 
 [4]
-Overfull \hbox (10.14064pt too wide) in paragraph at lines 274--276
+Overfull \hbox (10.14064pt too wide) in paragraph at lines 285--287
 []\TU/lmr/m/n/10 Now sup-pose that we wish to rep-re-sent some num-ber $\l_font
 spec_font 𝑥$ \TU/lmr/m/n/10 in the range $\l_fontspec_font (2[], 2[])$\TU/lm
 r/m/n/10 .
  []
 
 [5]
-Overfull \hbox (22.90709pt too wide) in paragraph at lines 310--314
-[][]\TU/lmr/bx/n/10 Def-i-ni-tion 3.6. []\TU/lmr/m/n/10 Sup-pose that we have a
+Overfull \hbox (22.90709pt too wide) in paragraph at lines 321--325
+[][]\TU/lmr/bx/n/10 Def-i-ni-tion 4.6. []\TU/lmr/m/n/10 Sup-pose that we have a
  num-ber $\l_fontspec_font 𝑥 = 𝑏. [] 𝑑[]𝑑[]𝑑[]$\TU/lmr/m/n/10 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--314
+Underfull \hbox (badness 10000) in paragraph at lines 321--325
 
  []
 
-(load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
-ric/fonts/otl/lmmono10-regular.luc) [6](load luc: /Users/anjaliagrawal/Library/t
-exlive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc)
+[6](load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/g
+eneric/fonts/otl/lmmono10-regular.luc) [7](load luc: /Users/anjaliagrawal/Librar
+y/texlive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc)
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.00012pt on input line 381.
+(Font)              scaled to size 8.00012pt on input line 392.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.00009pt on input line 381.
+(Font)              scaled to size 6.00009pt on input line 392.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.99988pt on input line 381.
+(Font)              scaled to size 7.99988pt on input line 392.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.99991pt on input line 381.
+(Font)              scaled to size 5.99991pt on input line 392.
 (load luc: /Users/anjaliagrawal/Library/texlive/2017/texmf-var/luatex-cache/gene
-ric/fonts/otl/lmroman6-regular.luc) [7
+ric/fonts/otl/lmroman6-regular.luc) [8
 Missing character: There is no ‾ (U+203E) in font [lmroman10-regular]:+tlig;!
 Missing character: There is no π (U+03C0) in font [lmroman10-regular]:+tlig;!
-] [8] [9] [10] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 569.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 569.
+] [9] [10] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 580.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 580.
  (./lecture1_5.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 569.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 569.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 580.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 580.
 Package rerunfilecheck Info: File `lecture1_5.out' has not changed.
-(rerunfilecheck)             Checksum: 4F8B995D95CBE299C8E0E6AB0D514CFB;245.
+(rerunfilecheck)             Checksum: 30DC7A14A04283EBE190FD40B27F957E;293.
 )
 
 Here is how much of LuaTeX's memory you used:
- 36554 strings out of 494481
+ 36556 strings out of 494481
  125070,1144653 words of node,token memory allocated
  603 words of node memory still in use:
    7 hlist, 2 vlist, 2 rule, 3 glue, 1 kern, 28 attribute, 59 glue_spec, 28 attr
 ibute_list, 1 write, 1 pdf_action nodes
-   avail lists: 1:15,2:925,3:159,4:45,5:267,6:2822,7:870,8:87,9:628,10:10,11:282
+   avail lists: 1:15,2:713,3:154,4:39,5:258,6:2789,7:828,8:84,9:476,10:10,11:278
 
- 39329 multiletter control sequences out of 65536+600000
- 98 fonts using 18255719 bytes
- 74i,15n,88p,867b,721s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 39330 multiletter control sequences out of 65536+600000
+ 98 fonts using 18255783 bytes
+ 74i,15n,88p,867b,707s stack positions out of 5000i,500n,10000p,200000b,100000s
 
 warning  (pdf backend): unreferenced destination with name 'Hfootnote.1'
 </usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.ot
@@ -1760,16 +1759,16 @@ otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmmono10-regula
 r.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-math/latinmod
 ern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroma
 n7-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmro
-man10-italic.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-ma
+man10-italic.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lm
+roman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/public/lm-ma
 th/latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentype/publi
 c/lm-math/latinmodern-math.otf></usr/local/texlive/2017/texmf-dist/fonts/opentyp
-e/public/lm/lmroman10-bold.otf></usr/local/texlive/2017/texmf-dist/fonts/opentyp
 e/public/lm/lmroman10-regular.otf></usr/local/texlive/2017/texmf-dist/fonts/open
 type/public/lm/lmroman12-bold.otf>
-Output written on lecture1_5.pdf (11 pages, 95403 bytes).
+Output written on lecture1_5.pdf (11 pages, 97074 bytes).
 
-PDF statistics: 209 PDF objects out of 1000 (max. 8388607)
- 159 compressed objects within 2 object streams
- 60 named destinations out of 1000 (max. 131072)
- 56 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 213 PDF objects out of 1000 (max. 8388607)
+ 163 compressed objects within 2 object streams
+ 61 named destinations out of 1000 (max. 131072)
+ 64 words of extra memory for PDF output out of 10000 (max. 100000000)
 

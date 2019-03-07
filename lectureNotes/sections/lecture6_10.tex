@@ -492,6 +492,34 @@ kkkkkk
 \section{Lecture 8}{Problem Transformations}
 
 \subsection{Quiz}
+\begin{proposition}
+    $k(A^TA) = k(A)^2$.
+\end{proposition}
+\begin{proof}
+    \begin{outline}
+        \1 Recall that $\norm{A} = \max_{\sigma}(A)$.
+        \1 $(A^TA)^T(A^TA) = (A^TA)^2$.
+        \2 It follows that $\norm{A^TA} = \norm{A}^2$.
+        \1 Let $\Sigma(A)$ be the set of eigenvalues of $A^TA$. Strangely, it is difficult to argue that if $\lambda \in \Sigma(A)$, then
+        $\frac{1}{\lambda} \in \Sigma(\inv{A})$. It can be argued, however, that $\lambda \in \Sigma(A^TA) \iff 1/\lambda \in \Sigma{\inv{(A^TA)}}$. 
+        Thus the smallest singular value of $A^TA$ is, when reciprocated, the largest singular value of $\inv{A^TA}$. \\
+        Not sure why this is significant. Crap
+    \end{outline}
+\end{proof}
+\begin{remark}
+    It seems that using $A^TA$ is also disadvantageous insofar as if matrix looks like say
+
+    \[
+        \begin{bmatrix}
+            1 & 0\\
+            \e & 0\\
+            1 & \e\\
+        \end{bmatrix}
+    \]
+
+    and we compute $A^TA$ then we will get a term that may be $1 + \e^2$. Suppose that $\e < \sqrt{\e_{mach}}$. Then the term
+    will end up being $1$.
+\end{remark}
 \begin{remark}
     If $Q$ is orthogonal, then $\norm{v} = \norm{Qv}$.
 \end{remark}
@@ -507,7 +535,42 @@ kkkkkk
     
 \end{definition}
 
-\section{Lecture 9}{Problem Transformations II}
+\section{Lecture 9}{Problem Transformations II -- February 5th}
+\begin{definition}
+    Given a matrix $v$, a projection matrix onto span $v$ is $\frac{vv^T}{v^Tv}.$ This is unique, I think. In any case, this projection matrix is symmetric and satisfies $P^2 = P$, making it an orthogonal transformation.
+\end{definition}
+
+\begin{proposition}
+    A householder transformation finds the normal vector $v$ such that if $\alpha$ is reflected across the plane whose normal is given by $v$, then the resulting vector is nullified in all but the first $k$ components. The projection matrix is given by 
+
+    \[
+        I - 2 \frac{v v^T}{v^Tv}
+    \]
+\end{proposition}
+\begin{proof}
+    \[
+        P = \frac{vv^T}{v^Tv}
+    \]
+
+    is the projection matrix that projects onto $\text{span}(v)$. We established that $P$ is an orthogonal transformation; therefore, $(I - P)x$ will project onto the set $\left\{ x | v^Tx = 0 \right\},$ which is the plane whose normal is $v$. Multiplication by $I - P$ amounts to travelling from $x$ and then onto this plane; we now need to travel once more to attain a reflection. Thus, the projection that will allow us to attain the form is
+    \[
+        I - 2 \frac{v v^T}{v^Tv}
+    \]
+\end{proof}
+
+\begin{proposition}
+    It can be shown that the vector $v$ which allows us to zero the last $m-k$ components of an $m$ vector $a$ where $1 \leq k < m$ is
+
+    \[
+        \begin{bmatrix}
+            0 \\
+            a_2 \\
+        \end{bmatrix} - \alpha e_k
+    \]
+
+    where $\alpha = -sign(a_k)\norm{a_2}_2$.
+\end{proposition}<++>
+
 
 \section{Lecture 10}{SVD}
 
