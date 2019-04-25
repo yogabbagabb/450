@@ -192,7 +192,7 @@ matrices with n distinct eigenvalues
 \end{remark}
 
 \begin{definition}
-    One remedy to this problem is to orthonormalize the iterate of the basis:
+    One remedy to this problem is to orthonormalize the iterate of the basis. The resulting algorithm is called orthonormal iteration.
 
     In what follows, assume that we use the full unreduced $QR$ factorization.
 
@@ -208,6 +208,7 @@ matrices with n distinct eigenvalues
     Notice that at each iteration, we have $A = Q_{k+1}R_{k+1}Q_{k}^T$. If $Q_k \to Q$ then $A = QRQ^{T}$ ($R$ also converges as a consequence), so that we have found some (allegedy dominant) $p$ eigenvectors in $Q$ and their eigenvalues in the $p \times p$ upper triangular $R$.
 \end{definition}
 
+
 \begin{remark}
     Assume now that we use the reduced $QR$ factorization so that $Q$ is $n \times r$ and $R$ is $r \times r$.
 
@@ -222,6 +223,41 @@ matrices with n distinct eigenvalues
     In $QR$ iteration, we decompose $A_k$ as $Q_kR_k$ and then obtain $A_{k+1} = R_kQ_k$. Notice that $A_{k+1} = Q_{k}^TA_kQ_k$ so that if $Q_k$ converges then $A_{k+1}$ is now (this is not yet underestood) really an upper triangular matrix with eigenvalues along its diagonal.
 \end{definition}
 
+\begin{remark}
+    It is instructive to look at the iterates of simultaneous iteration and $QR$ iteration:
+
+    \begin{align*}
+        \hat{Q_1}R_1 = X_0 \\
+        X_1 = A \hat{Q_1} \\
+        \hat{Q_2}R_2 = X_1 \\
+        X_2 = A \hat{Q_2} \\
+        \hat{Q_3}R_3 = X_2
+        \implies \hat{Q_3} R_3 \hat{Q_2}^H = A
+        \implies \hat{Q_{k+1}} R_{k+1} \hat{Q_k}^H = A
+    \end{align*}
+
+    QR iteration:
+
+    \begin{align*}
+        Q_1R_1 = A_0 = A \\
+        A_1 = R_1Q_1 \\
+        Q_2R_2 = A_1\\
+        A_2 = R_2Q_2 \\
+        \implies A_2 = Q_2^H A_1 Q_2 \\
+        \implies A_{k+1} = Q_{k+1}^H A_k Q_{k+1} \\
+    \end{align*}
+
+    There is an equivalence between the two forms of iteration that can be expressed as follows:
+
+    Suppose that we have $\hat{Q_{k-1}}$ and that we wish to form $X_{k-1} = A \hat{Q_{k-1}}$ and then factorize the resultant product as $\hat{Q_k}R_k$. Assume further that have already factorized $A_{k-1}$ as $Q_k R_k$. Then we can compute $X_{k-1}$ without any work that we would normally do for simultaneous iteration:
+
+    \[
+        X_{k-1} = A \hat{Q_{k-1}} = \hat{Q_{k-1}}\hat{Q_{k-1}}^H A \hat{Q_{k-1}} = \hat{Q_{k-1}}A_{k-1} = \hat{Q_{k-1}Q_k R_k}
+    \]
+
+    If we set $\hat{Q_k} \coloneq \hat{Q_{k-1}Q_k}$, and appeal to the uniquess of $QR$, then we are done.
+
+\end{remark}
 \begin{definition}
     In $QR$ iteration with shifting, we factor $A_k - \sigma_k I$ as $Q_k R_k$ and then compute
 
@@ -236,6 +272,20 @@ matrices with n distinct eigenvalues
     \]
 \end{definition}
 
+\begin{remark}
+    Once again, it is instructive to see what the iterates of $QR$ iteration with shifting look like:
+
+    \begin{align*}
+        Q_1R_1 = (A_0 - \sigma_0 I) \\
+        A_1 = R_1Q_1 + \sigma_0 I \\
+        \implies A_{k+1} = Q_{k+1}^H(A_{k} - \sigma_{k}I)Q_{k+1} + \sigma_0 I \\
+        = Q_{k+1}^H A_{k} Q_{k+1} \\
+    \end{align*}
+\end{remark}
+
+
+
+
 \begin{definition}
     The Schur decomposition of a matrix $A = QUQ^H$ expresses $A$ as similar to an upper triangular matrix $U$. A proof of this theorem is given in \url{http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter2.pdf} at page 6. We now list some properties pertaining to the matrix:
 
@@ -244,8 +294,34 @@ matrices with n distinct eigenvalues
         \1 If $Q$ and $U$ are real, then $QU$ is a $QR$ decomposition -- obviously.
         \1 If $A$ is real symmetric, then it must be true that $U$ is diagonal, in which case it contains all the eigenvalues of $A$. 
         \2 Moreover, since $U = Q^HAQ$, one can shown that $U^{*} = U$, implying that all the eigenvalues are real. A proof near the proof listed above additionally explains that eigenvectors corresponding to distinct eigenvalues are orthonormal.
-    \end{outline}<++>
-\end{definition}<++>
+    \end{outline}
+\end{definition}
+
+\begin{proposition}
+    With the schur form of a matrix, we can also use the triangular matrix $U$ to construct eigenvectors.
+\end{proposition}
+
+\begin{proof}
+    Subtract $\lambda I$ from $U$. Then we get
+
+    \[
+        \begin{bmatrix}
+            U_{1,1} u U_{1,3} \\
+            0 v^T \\
+            U_{3,1}
+        \end{bmatrix}
+    \]
+
+    Note that $U_{1,1}$ is also triangular, $u$ is a column vector, $U_{1,3}$ a rectangular block, $v$ a column vector and $U_{3,1}$ another triangular matrix. Then 
+    \[
+        \begin{bmatrix}
+            -\inv{U_{1,1}} u \\
+            1 \\
+        \end{bmatrix}
+    \]
+
+    is an eigenvector.
+\end{proof}
 
 \section{Lecture 13}
 
@@ -410,6 +486,27 @@ For a tridiagonal matrix A, it takes O(n2) time.
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture13_arnoldi}
 \end{remark}
 
+\begin{remark}
+    Note that this algorithm provides us with a means of obtaining the Hesenberg matrix that the original matrix $A$ is orthogonally similar to. The vectors $q$ are not so important save that we need them in order to determine the values in the matrix $C$ (which stands for the Hesenberg matrix).
+
+    This is done as follows: the crux of this algorithm is the equation
+
+    \[
+        Aq_k = \sum_{i=1}^{k+1}C_{ik}q_{i}
+    \]
+
+    Assuming that we already know $q_j$ for $j \leq k$, it is our goal to determine $C_{ik}$ for all $i \leq k+1$. To do this, we observe that $q_i^HAq_k = C_{ik}$. Thus, we know all values of $C_{ik}$ where $i \leq k$. To determine $C_{k+1,k}$, observe that
+
+    \[
+        \underbrace{Aq_k - \sum_{i=1}^{k}C_{ik}q_{i}}_{\gamma} = C_{k+1, k} q_{k+1}
+        = \underbrace{(Aq_k) - \sum_{i=1}^{k}q_i^H (Aq_k)q_{i}}_{\gamma} = C_{k+1, k} q_{k+1}
+    \]
+
+    Since $q_{k+1}$ is destined to be part of an orthogonal matrix, we know that $C_{k+1,k}$ is $\norm{\gamma}$ and that $q_{k+1}$ is $\gamma/\norm{\gamma}$.
+
+    Observe that the algorithm above unfolds like Gram Schmidt in that we take the next vector $Aq_k$ and then subtract away the projection of this vector onto previous $q_i$ where $i \leq k-1$.
+\end{remark}
+
 \begin{proposition}
     We can compute the eigenvectors corresponding to the $k$ greatest eigenvalues in modulus.
 \end{proposition}
@@ -508,7 +605,216 @@ Which of the following is equal to QTkb?
     \]
 
     which is still upper Hesenberg.
-\end{solution}<++>
+\end{solution}
+
+\begin{question}
+    Why do we favor symmetric problems in terms of condition number?
+\end{question}
+
+\begin{remark}
+    Arnoldi is a way to get eigenvalues especially if you cannot store the entire matrix. Why? Since if we compute $Q_k^TAQ_k$, we get a matrix consisting of the first $k$ ritz eigenvalues, which approximate the $k$ eigenvalues greatest in modulus.
+\end{remark}
+
+\begin{proposition}
+    We can compute the SVD of a square matrix:
+\end{proposition}
+\begin{proof}
+    The following is a naive way of computing the SVD:
+
+    \begin{align*}
+        \intertext{Suppose that we have already obtained the eigenvalues and eigenvectors of $A^TA$ as part of a matrix $V$. Note that the eigenvectors constitute an eigenbasis, since $A^TA$ is symmetric and thus has an eigenvector basis. It follows that $A^TA$ is diagonalizable. That is we have:} \\
+        A^TA = V \Sigma^2 V^T \\
+        \intertext{We know that the diagonal matrix can be represented as the square of a matrix, because $A^TA$ is positive semidefinite and, hence, has non-negative eigenvalues.}
+        A = U \Sigma V^T \implies U = A V \inv{\Sigma} \\
+        \intertext{Indeed, we will find that $U$ is orthogonal, since} \\
+        U^TU = \inv{\Sigma}V^TA^TAV\inv{\Sigma} = I
+        \intertext{Note that we seem to have assumed that $A^TA$ is full rank.} \\
+    \end{align*}
+
+\end{proof}
+    \begin{definition}
+        A non linear equation $f: \R^n \to \R$ is solved when we find the tuple $x$ such that $f(x) = 0$. If we are given a function $g: \R^n \to \R$ and we want to find the $x$ such that $g(x) = c$, that we can alternatively find the $x$ such that $f(x) = g(x) - c = 0$.
+    \end{definition}
+
+    \begin{remark}
+        We have three tools in order to assert the existence of a solution.
+        \begin{outline}
+            \1 The intermediate value theorem tells us that if $f(a) < 0$ and $f(b) > 0$ and $f$ is continuous, then there is a $c$ such that $a < c < b$ such that $f(c) = 0$.
+            \1 The inverse function theorem tells us that if $f: \R^n \to \R$ and the Jacobian of $f$ is non-singular at a point $x$, then there is a neighborhood $B$ of $f(x)$ such that for every $y \in B$, there is an $x$ such that $f(x) = y$.
+            \1 \begin{definition}
+                A function $g: \R^n \to \R^n$ is a contraction if it holds that for some $0 \leq \alpha < 1$, we have $\norm{g(x) - g(y)} \leq \alpha \norm{x - y}$.
+            \end{definition}
+            \2 The contraction mapping theorem tells us that if $S$ is a closed set and $g$ a contraction such that $g(S) \s S$, then there is a unique fixed point in $S$.
+            \3 For if there were two fixed points, $x$ and $y$, then we would not have $\norm{g(x) - g(y)} \leq \alpha \norm{x-y}.$
+            \3 We often reduce root finding problems of the form $f(x) = 0$ to fixed point problems $g(x) = f(x) + x$.
+        \end{outline}
+    \end{remark}
+
+    \begin{proposition}
+        The condition number of solving a root problem is the same as the condition number of evaluating the inverse function at $0$.
+    \end{proposition}
+    \begin{proof}
+        \begin{lemma}
+            The condition number of evaluating a function $f$ at $x$ is $\abs{f'(x)}$.
+        \end{lemma}
+        \begin{proof}
+            Suppose that we perturb the input $x$ by $h$; then the relative difference in the output is $f(x+h) - f(x) = hf'(x)$ using the Taylor approximation. It follows that 
+            \[
+                \abs{\frac{f(x+h) - f(x)}{h}} = \abs{f'(x)}
+            \]
+            
+            
+        \end{proof}
+
+        Using the preceding lemma, it follows that the function that we wish to find the absolute condition number of is $x \mapsto \inv{f}(x)$.
+        Note that this function has derivative given by $\frac{1}{f'(\inv{f}(x))}$. Whence the condition number is given by
+
+        \[
+            \frac{1}{f'(\xa)}
+        \]
+
+        where $\xa$ is the root such that $f(\xa) = 0$.
+
+        For this reason, we submitted the proposition above that the condition number is the same as the condition number of evaluating the inverse.
+    \end{proof}
+
+    \begin{definition}
+        A function has a root of multiplicity $m$ if it holds that
+        \[
+            f^{j}(x) = 0
+        \]
+
+        where $0 \leq j \leq m-1$.
+    \end{definition}
+
+    \begin{remark}
+        If a function has a root of high multiplicity then evaluating this root has a high condition number. For the function $f$ will be very flat near the root $x$ (since its derivatives at $x$ are all $0$), meaning that $\inv{f}$ will be steep near $0$, which implies that small input perturbations will have a high output perturbation.
+    \end{remark}
+    \begin{definition}
+        Suppose that a function $f$ outputs an estimate $\mu_k$ of some quantity $\mu$ at every iteration $k$. We say that $f$ converges at rate $r$ if
+
+        \[
+            \lim_{k \to \infty}\norm{e_{k+1}}/\norm{e_{k}}^r \leq C 
+        \]
+
+        where $e_{k} = \mu_k - \mu$ and $0 \leq C < \infty$.
+    \end{definition}
+    \begin{remark}
+        Suppose that $e_0 < 1$ is a starting error for two processes, one quadratically converging and the other linearly converging. In this case, quadratic convergence will converge faster (in fewer iterations) than linear convergence. For linear iteration will decrease the magnitude of the error vector by a constant factor every, say, $k$ iterations whereas quadratic convergence will decrease the magnitude of the error vector by a factor of $2$.
+        Quadratic convergence will converge, to finite precision, in no more than $5$ iterations, assuming that the starting error vector is less in magnitude than $10^{0}$, because as we discussed just now, floating point precision will only allow for accuracy for numbers up to $10^{-16}$.
+
+        In light of this quick convergence near the solution, it is not meaningful to have operations with convergence rate greater than $2$.
+    \end{remark}
+
+    \begin{definition}
+        One of the following criteria for convergence if often employed, although all criterion have their flaws:
+        \begin{outline}
+            \1 \[
+                \abs{f(x)} < \e
+            \]
+            \2 A very flat function (one with, for example, a root of high multiplicity) may become small at points that are not roots.
+            \1 \[
+                \norm{x_{k} - x_{k+1}} < \e
+            \]
+            \2 An algorithm may fail to make progress, accounting for incremental differences.
+            \1 \[
+                \frac{\norm{x_{k} - x_{k+1}}}{\norm{x_k}} < \e
+            \]
+            \2 The same as above.
+        \end{outline}
+    \end{definition}
+
+    \section{Lecture 15}{Bisection Method}
+
+    \pp{1}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{lecture15_q1}
+    Which of the following hold?
+    \begin{solution}
+        The estimates of the biggest and smallest can only get better and better as we increase $k$. So we find that $M_k$ is a non-decreasing sequence and $m_k$ a non-increasing sequence.
+    \end{solution}
+
+    \pp{2}
+    Equal Eigenvalues
+Assume you are given a matrix whose eigenvalues are all the same. You wish to use Arnoldi iteration to compute the spectrum. What can you say about using this method?
+Choice*
+Having equal eigenvalues has no effect in the convergence of Arnoldi iteration
+Having equal eigenvalues guarrantees the matrix is diagonalizable and therefore Arnoldi always converges
+The k-th Ritz value converges to the k-th eigenvalue at iteration k
+Arnoldi reduces the matrix to tridiagonal form since having equal eigenvalues means the matrix is symmetric
+\begin{solution}
+    Having equal eigenvalues gives no informatin about the matrix.
+\end{solution}
+
+\pp{3}
+Lanczos Iteration
+Lanczos iteration modifies Arnoldi iteration when the matrix is symmetric or Hermitian so that recurrence then has only three terms.
+
+Which of the following are properties of Lanczos?
+
+Select all that apply:
+Lanczos requires less work than Arnoldi
+Lanczos iteration generates an upper Hessenberg reduced Krylov matrix
+Lanczos produces a different result than if Arnoldi was applied to the same symmetric matrix
+Lanczos iteration generates a tridiagonal reduced Krylov matrix
+\begin{solution}
+    Lanczos require less work -- since the resulting hesenberg matrix that we fill in the arnoldi vector computation is really tridiagonal then. A tridiagonal matrix is also upper hesenberg, so this works there; lanczos produces no different result -- it just takes less time sinc eit exploits the tridiagonal form; yes the last is a definition.
+
+    Note that the krylov matrix is just the matrix that $A$ is similar to via orthogonalization by an orthogoanl basis of the krylov subspace $[x_0 Ax_0 \dots A^{k-1}x_0]$.
+\end{solution}
+
+\pp{4}
+2-Norm of a Matrix
+Suppose you are given an arbitrary matrix, A, of which you want to compute the 2-norm 
+What method would you use to accomplish this in the fastest and most accurate way?
+
+Choice*
+Randomly select a set of vectors, x, evenly distributed and apply the definition
+Compute the SVD of A directly and read of the largest singular value
+Use power iteration to compute the largest eigenvalue which corresponds to the largest singular value
+Apply a few iterations of Lanczos to obtain singular value estimate from Krylov subspace of A⊤A
+\begin{solution}
+    The two norm of a matrix is just the largest singular value; computing the svd takes $O(n^3)$ time -- hitting several random unit vectors by $A$ may not be accurate; the largest eigenvalue does not correspond to the largest singular value unless the matrix is symmetric (note that this is a sufficient condition but not a necessary one -- ie it could be the case that a matrix exists with largest eigenvalue corresponding to the largest singular value, but yet the matrix is not symmetric). Arnoldi iteration takes $O(k^3 + nk^2) = O(\max{k^3, nk^2})$ in general -- since we need $O(nk)$ to orthogonalize the $k$th arnoldi vector against the previous $k-1$ vectors and we need to do this $nk + n(k-1) + nk \approx nk^2$ times. Then when we apply eigenvalue methods to the resulting reduced Arnoldi matrix (the ritz matrix), the costs there is $O(k^3)$. 
+\end{solution}
+
+\pp{5}
+
+Just know that the condition number of solving the root problem is the same as teh condition n umber of evaluating the inverse, which is $\frac{1}{f'(\xa)}$ where $\xa$ is a root.
+
+    \begin{definition}
+        The bisection method operates on an interval $[a,b]$ where we assume that $sign\left( f(a) \right) =  -sign\left( f(b) \right)$, from which it follows that there exists a zero in $[a,b]$. We then do the following: Letting $m = a + b /2$, if $f(m)f(a) \geq 0$, we recurse on $[m,b]$ or else on $[a,m]$.
+    \end{definition}
+    \begin{remark}
+        At any iteration the distance from either $a$ or $b$ to the root is at most $b - a$. We define $b-a$ to be the error at this iteration. A subsequent iteration will halve the interval, from which we conclude that the error rate is given by
+        \[
+            e_k \leq e_{k+1}\frac{1}{2}
+        \]
+    \end{remark}
+    \begin{remark}
+        Since the magnitude in the error drops by $2^{-1}$ on every iteration, bisection will terminate in at most $52$ iterations, since the error after $52$ iterations is $2^{-52} = \e_{mach}$, and we cannot represent any number thereafter. UNRESOLVED -- well, shouldn't the relative error have to be $2^{-52}$ for us to make this conclusion.
+    \end{remark}
+
+    \begin{definition}
+        Assume that there is a fixed point $x^{*}$ of a smooth function $g$ (continuously differentiable). Assume further that $g'(x^{*}) < 1$, which implies that $g' < 1$ on a neighborhood of $x^{*}$. Then it follows that
+
+        \[
+            g(x_{k}) - g(x^{*}) = g'(\theta)(x_{k} - x^{*})
+        \]
+
+    where $g(x_{k}) = x_{k+1}$ and $\theta$ is some point in between $[x_k, x^{*}]$. If $\theta$ falls into the neigborhood where $g' < 1$, then the equation above is a contraction (here, we use the stronger definition) and it converges linearly.
+    \end{definition}
+
+    \begin{remark}
+        Suppose that $g'(x^{*}) = 0$. Then using a second order taylor expansion, it holds that $g'(\theta) = g'(x^{*}) + g''(x^{*})(\theta - x^{*}) \leq g''(x^{*})(e_k)$. Here we assume that $\theta > x^{*}$, meaning that the fixed point is the point closer to $\infty$. Then it follows that
+        \[
+            \underbrace{ g(x_{k}) - g(x^{*}) }_{e_{k+1}}\leq g''(\theta)e_k^2
+        \]
+    \end{remark}
+
+
+    \begin{remark}
+        The fact that $g'(\delta) = g'(x^{\star}) + g''(x^{\star})(x^{\star} - \delta)$ implies that as $\delta$ approaches $x^{*}$, the magnitude of the first derivative drops. In summary if this derivative drops enough that it is $0$ at $x^{*}$, then convergence is quadratic and if, at least, the derivative is less than $1$, then convergence is linear.
+    \end{remark}
+
 
 
 

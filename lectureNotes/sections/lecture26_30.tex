@@ -1,0 +1,61 @@
+\documentclass[../main.tex]{subfiles}
+
+
+
+\begin{document}
+
+\section{Lecture 25}
+\begin{definition}
+    An ordinary differential equation is a differential equation where the state vector
+    depends only on one variable, usually time. A partial differential equation has the
+    state vector depend on several variables.
+\end{definition}
+
+\begin{definition}
+    A partial differential equation is in implicit form, if for each derivative of the state
+    vector $y$ that we denote by $y^k$, we have
+
+    \[
+        f(t, y,  y^2, \dots y^k) = 0
+    \]
+
+    By contrast, an ODE is said to be in explicit form is we can write $y^k$ as
+
+    \[
+        f(t, y', y'', \dots ,y^{k-1})
+    \]
+
+    
+\end{definition}
+
+\begin{definition}
+    The order of an ODE is the degree of the highest derivative that occurs in the implicit
+    form representation of an ODE.
+\end{definition}
+
+\begin{remark}
+    We will restrict  our attention to first order ODEs, for suppose we are given an explicit ODE, then we can define $u_k = y^{k} = f(t, y, y'', \dots y^{k-1})$ and we will find that
+
+    \begin{align*}
+        \begin{bmatrix}
+            u_2 \\
+            u_3 \\
+            u_4 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            u_1' \\
+            u_2' \\
+            u_3' \\
+        \end{bmatrix}
+    \end{align*}
+    which is a system of $kn$ first order equations (here, realize that $u_k$ is a vector in $\R^n$).
+\end{remark}
+\end{document}
+
+
+
+
+
+
+

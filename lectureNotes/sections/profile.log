@@ -1,0 +1,838 @@
+FUNCTION  traces#cmdl_leave()
+Called 2 times
+Total time:   0.000541
+ Self time:   0.000541
+
+count  total (s)   self (s)
+    2              0.000024   let s:nr = bufnr('%')
+    2              0.000021   if !exists('s:buf[s:nr]')
+                                return
+                              endif
+                              " changes
+    2              0.000014   if exists('s:buf[s:nr].changed')
+                                if s:buf[s:nr].changed
+                                  noautocmd keepjumps silent undo
+                                  call s:restore_marks()
+                                endif
+                                if bufname('%') !=# '[Command Line]'
+                                  silent! execute 'noautocmd rundo ' . s:buf[s:nr].undo_file
+                                endif
+                              endif
+                            
+                              " highlights
+    2              0.000020   if exists('s:win[win_getid()]')
+                                if &scrolloff !=# 0
+                                  let scrolloff = &scrolloff
+                                  let &scrolloff = 0
+                                endif
+                                let cur_win = win_getid()
+                                let alt_win = win_getid(winnr('#'))
+                                let windows = filter(win_findbuf(s:nr), {_, val -> win_id2win(val)})
+                                for id in windows
+                                  noautocmd call win_gotoid(id)
+                                  if exists('s:win[id]')
+                                    if exists('s:win[id].hlight')
+                                      for group in keys(s:win[id].hlight)
+                                        if s:win[id].hlight[group].index !=# - 1
+                                          call matchdelete(s:win[id].hlight[group].index)
+                                        endif
+                                      endfor
+                                    endif
+                                    if exists('s:win[id].options')
+                                      for option in keys(s:win[id].options)
+                                        execute 'let &' . option . '="' . s:win[id].options[option] . '"'
+                                      endfor
+                                    endif
+                                    unlet s:win[id]
+                                  endif
+                                endfor
+                                if bufname('%') !=# '[Command Line]'
+                                  noautocmd call win_gotoid(alt_win)
+                                  noautocmd call win_gotoid(cur_win)
+                                endif
+                                if exists('scrolloff')
+                                  let &scrolloff = scrolloff
+                                endif
+                              endif
+                            
+    2              0.000012   if &hlsearch !=# s:buf[s:nr].hlsearch
+                                let &hlsearch = s:buf[s:nr].hlsearch
+                              endif
+    2              0.000026   if winsaveview() !=# s:buf[s:nr].view
+                                call winrestview(s:buf[s:nr].view)
+                              endif
+    2              0.000032   unlet s:buf[s:nr]
+
+FUNCTION  <SNR>27_create_cmdl_changed_au()
+Called 2 times
+Total time:   0.000677
+ Self time:   0.000568
+
+count  total (s)   self (s)
+    2              0.000022   augroup traces_augroup_cmdline_changed
+    2              0.000425     autocmd!
+    2              0.000046     autocmd CmdlineChanged : call s:cmdline_changed()
+    2              0.000007   augroup END
+                              " necessary when entering command line that has already been populated with
+                              " text from mappings
+    2   0.000162   0.000053   call s:cmdline_changed()
+
+FUNCTION  <SNR>27_t_start()
+Called 2 times
+Total time:   0.000111
+ Self time:   0.000111
+
+count  total (s)   self (s)
+    2              0.000031   if exists('##CmdlineChanged')
+    2              0.000045     let s:track_cmdl_timer = timer_start(30,function('s:create_cmdl_changed_au'))
+    2              0.000006   else
+                                let s:track_cmdl_timer = timer_start(30,function('s:track_cmdl'),{'repeat':-1})
+                              endif
+
+FUNCTION  <SNR>83_evaluate_range()
+Called 29 times
+Total time:   0.006088
+ Self time:   0.006088
+
+count  total (s)   self (s)
+   29              0.000136   let last_delimiter = ''
+   29              0.000178   let result = { 'range': []}
+   29              0.000100   let s:range_valid = 1
+   29              0.000305   let last_position = getpos('.')[1]
+   29              0.000213   let last_position = s:buf[s:nr].cur_init_pos[0]
+   29              0.000120   let result.pattern = ''
+   29              0.000072   let skip = 0
+                            
+   29              0.000159   for specifier in a:range_structure
+                                let entry = {}
+                                let entire_file = 0
+                                let use_temp_position = 0
+                                let specifier_result = []
+                            
+                                " specifiers are not given but delimiter is present
+                                if !len(specifier.addresses)
+                                  call add(specifier.addresses, { 'address': '.' })
+                                endif
+                            
+                                for address in specifier.addresses
+                                  let query = s:spec_to_abs(address, use_temp_position ? temp_position : last_position, len(result.range))
+                                  if query.valid
+                                    let temp_position = query.range[-1]
+                                    let use_temp_position = 1
+                                    if !query.skip
+                                      call extend(specifier_result, query.range)
+                                      let result.pattern = query.regex
+                                    endif
+                                    if len(query.range) == 2
+                                      let entire_file = 1
+                                      if len(specifier.addresses) > 1
+                                        let skip = 1
+                                      endif
+                                      break
+                                    endif
+                                  else
+                                    let s:range_valid = 0
+                                  endif
+                                endfor
+                            
+                                if has_key(specifier, 'delimiter')
+                                  let last_delimiter = specifier.delimiter
+                                endif
+                            
+                                if len(specifier_result)
+                                  if entire_file
+                                    call extend(result.range, specifier_result)
+                                  elseif len(specifier_result)
+                                    call add(result.range, specifier_result[-1])
+                                  endif
+                                  if last_delimiter ==# ';'
+                                    let last_position = result.range[-1]
+                                  endif
+                                endif
+                                if skip
+                                  break
+                                endif
+                              endfor
+                            
+   29              0.000175   return s:range_valid ? result : { 'range' : [], 'pattern' : '' }
+
+FUNCTION  <SNR>83_trim()
+Called 120 times
+Total time:   0.004475
+ Self time:   0.004475
+
+count  total (s)   self (s)
+  120              0.000398   if a:0 == 2
+    4              0.000035     let a:1[0] = strcharpart(a:1[0], a:2)
+    4              0.000005   else
+  116              0.002496     let a:1[0] = substitute(a:1[0], '^\s\+', '', '')
+  116              0.000280   endif
+
+FUNCTION  <SNR>83_parse_range()
+Called 29 times
+Total time:   0.016505
+ Self time:   0.013229
+
+count  total (s)   self (s)
+   29              0.000133   let specifier = {}
+   29              0.000140   let specifier.addresses = []
+                            
+   29              0.000118   let while_limit = 0
+   29              0.000081   let flag = 1
+   58              0.000191   while flag
+                                " address part
+   29   0.002082   0.000637     call s:trim(a:cmdl)
+   29              0.000180     let entry = {}
+                                " regexp for pattern specifier
+   29              0.000141     let pattern = '/%(\\.|/@!&.)*/=|\?%(\\.|\?@!&.)*\?='
+   29              0.000186     if !len(specifier.addresses)
+                                  " \& is not supported
+   29              0.001242       let address = matchstrpos(a:cmdl[0], '\v^%(\d+|\.|\$|\%|\*|''.|'. pattern . '|\\\/|\\\?)')
+   29              0.000060     else
+                                  let address = matchstrpos(a:cmdl[0], '\v^%(' . pattern . ')' )
+                                endif
+   29              0.000142     if address[2] != -1
+                                  call s:trim(a:cmdl, address[2])
+                                  let entry.address = address[0]
+                                endif
+                            
+                                " offset
+   29   0.001402   0.000465     call s:trim(a:cmdl)
+   29              0.000693     let offset = matchstrpos(a:cmdl[0], '\m^\%(\d\|\s\|+\|-\)\+')
+   29              0.000166     if offset[2] != -1
+                                  call s:trim(a:cmdl, offset[2])
+                                  let entry.offset = offset[0]
+                                endif
+                            
+                                " add first address
+   29              0.000160     if address[2] != -1 || offset[2] != -1
+                                  call add(specifier.addresses, entry)
+                                else
+                                  " stop trying if previous attempt was unsuccessful
+   29              0.000106       let flag = 0
+   29              0.000041     endif
+   29              0.000407     let while_limit += 1 | if while_limit == 1000 | echoerr 'infinite loop' | break | endif
+   29              0.000072   endwhile
+                            
+                              " delimiter
+   29   0.001378   0.000484   call s:trim(a:cmdl)
+   29              0.000494   let delimiter = matchstrpos(a:cmdl[0], '\m^\%(,\|;\)')
+   29              0.000123   if delimiter[2] != -1
+                                call s:trim(a:cmdl, delimiter[2])
+                                let specifier.delimiter = delimiter[0]
+                              endif
+                            
+                              " add when addresses or delimiter are found or when one specifier is
+                              " already known
+   29              0.000292   if len(specifier.addresses) || delimiter[2] != -1 || len(a:range)
+                                call add(a:range, specifier)
+                              endif
+                            
+   29              0.000150   if delimiter[2] != -1
+                                try
+                                  return s:parse_range(a:range, a:cmdl)
+                                catch /^Vim\%((\a\+)\)\=:E132/
+                                  return []
+                                endtry
+                              else
+   29              0.000087     return a:range
+                              endif
+
+FUNCTION  <SNR>83_parse_command()
+Called 29 times
+Total time:   0.009909
+ Self time:   0.002043
+
+count  total (s)   self (s)
+   29   0.008511   0.000645   let a:cmdl.cmd.name = s:get_command(a:cmdl.string)
+   29              0.000515   if a:cmdl.cmd.name =~# '\v^%(g%[lobal]\!=|v%[global])$'
+                                let a:cmdl.cmd.args = s:parse_global(a:cmdl)
+                              elseif a:cmdl.cmd.name =~# '\v^%(s%[ubstitute]|sm%[agic]|sno%[magic])$'
+                                let a:cmdl.cmd.args = s:parse_substitute(a:cmdl)
+                              endif
+
+FUNCTION  <SNR>83_evaluate_cmdl()
+Called 29 times
+Total time:   0.038345
+ Self time:   0.005001
+
+count  total (s)   self (s)
+   29              0.000163   let cmdl                 = {}
+   29              0.000176   let cmdl.string          = a:string
+   29   0.024013   0.001420   let r                    = s:evaluate_range(s:parse_range([], cmdl.string))
+   29              0.000138   let cmdl.range           = {}
+   29              0.000140   let cmdl.range.abs       = r.range
+   29   0.001311   0.000789   let cmdl.range.pattern   = s:get_selection_regexp(r.range)
+   29   0.001303   0.000983   let cmdl.range.specifier = s:add_flags(r.pattern, cmdl, 3)
+                            
+   29              0.000122   let cmdl.cmd             = {}
+   29              0.000111   let cmdl.cmd.args        = {}
+   29   0.010482   0.000573   call s:parse_command(cmdl)
+                            
+   29              0.000068   return cmdl
+
+FUNCTION  <SNR>27_cmdline_changed()
+Called 29 times
+Total time:   0.002632
+ Self time:   0.002632
+
+count  total (s)   self (s)
+   29              0.000456   if exists('s:start_init_timer')
+   27              0.000224     call timer_stop(s:start_init_timer)
+   27              0.000076   endif
+   29              0.001733   let s:start_init_timer = timer_start(1, {_-> traces#init(getcmdline())})
+
+FUNCTION  <SNR>83_highlight()
+Called 58 times
+Total time:   0.002164
+ Self time:   0.002164
+
+count  total (s)   self (s)
+   58              0.000330   let cur_win = win_getid()
+   58              0.000663   if exists('s:win[cur_win].hlight[a:group].pattern') && s:win[cur_win].hlight[a:group].pattern ==# a:pattern
+                                return
+                              endif
+   58              0.000679   if !exists('s:win[cur_win].hlight[a:group].pattern') && empty(a:pattern)
+   58              0.000103     return
+                              endif
+                            
+                              if &hlsearch && !empty(a:pattern) && a:group ==# 'Search'
+                                let &hlsearch = 0
+                              endif
+                              if &scrolloff !=# 0
+                                let scrolloff = &scrolloff
+                                let &scrolloff = 0
+                              endif
+                            
+                              let alt_win = win_getid(winnr('#'))
+                              let windows = filter(win_findbuf(s:nr), {_, val -> win_id2win(val)})
+                              for id in windows
+                                noautocmd call win_gotoid(id)
+                                let s:win[id] = get(s:win, id, {})
+                                let s:win[id].hlight = get(s:win[id], 'hlight', {})
+                            
+                                if !exists('s:win[id].hlight[a:group]')
+                                  let x = {}
+                                  let x.pattern = a:pattern
+                                  silent! let x.index = matchadd(a:group, a:pattern, a:priority)
+                                  let s:win[id].hlight[a:group] = x
+                                  let s:highlighted = 1
+                                elseif s:win[id].hlight[a:group].pattern !=# a:pattern
+                                  if s:win[id].hlight[a:group].index !=# -1
+                                    call matchdelete(s:win[id].hlight[a:group].index)
+                                  endif
+                                  let s:win[id].hlight[a:group].pattern = a:pattern
+                                  silent! let s:win[id].hlight[a:group].index = matchadd(a:group, a:pattern, a:priority)
+                                  let s:highlighted = 1
+                                endif
+                                if (&conceallevel !=# 2 || &concealcursor !=# 'c') && a:group ==# 'Conceal'
+                                  let s:win[id].options = get(s:win[id], 'options', {})
+                                  let s:win[id].options.conceallevel = &conceallevel
+                                  let s:win[id].options.concealcursor = &concealcursor
+                                  set conceallevel=2
+                                  set concealcursor=c
+                                endif
+                                " highglighting doesn't work properly when cursorline or cursorcolumn is
+                                " enabled
+                                if &cursorcolumn || &cursorline
+                                  let s:win[id].options = get(s:win[id], 'options', {})
+                                  let s:win[id].options.cursorcolumn = &cursorcolumn
+                                  let s:win[id].options.cursorline = &cursorline
+                                  set nocursorcolumn
+                                  set nocursorline
+                                endif
+                              endfor
+                              if bufname('%') !=# '[Command Line]'
+                                noautocmd call win_gotoid(alt_win)
+                                noautocmd call win_gotoid(cur_win)
+                              endif
+                              if exists('scrolloff')
+                                let &scrolloff = scrolloff
+                              endif
+
+FUNCTION  <SNR>83_save_marks()
+Called 2 times
+Total time:   0.000147
+ Self time:   0.000147
+
+count  total (s)   self (s)
+    2              0.000016   if !exists('s:buf[s:nr].marks')
+    2              0.000006     let types = ['[', ']']
+    2              0.000009     let s:buf[s:nr].marks  = {}
+    6              0.000017     for mark in types
+    4              0.000071       let s:buf[s:nr].marks[mark] = getpos("'" . mark)
+    4              0.000007     endfor
+    2              0.000002   endif
+
+FUNCTION  traces#init()
+Called 29 times
+Total time:   0.054229
+ Self time:   0.013272
+
+count  total (s)   self (s)
+   29              0.000651   if &buftype ==# 'terminal' || (has('nvim') && !empty(&inccommand))
+                                if exists('s:track_cmdl_timer')
+                                  call timer_stop(s:track_cmdl_timer)
+                                endif
+                                return
+                              endif
+                            
+   29              0.000325   let s:nr =  bufnr('%')
+   29              0.000396   if !exists('s:buf[s:nr]')
+    2   0.000434   0.000031     call s:cmdl_enter()
+    2              0.000001   endif
+                            
+   29              0.000121   let s:highlighted = 0
+   29              0.000094   let s:moved       = 0
+   29              0.000163   let s:last_pattern = @/
+                            
+   29              0.000211   if s:buf[s:nr].duration < s:timeout
+   29              0.000277     let start_time = reltime()
+   29              0.000138   endif
+                            
+   29              0.000294   if exists('s:buf[s:nr].changed') && s:buf[s:nr].changed
+                                let view = winsaveview()
+                                noautocmd keepjumps silent undo
+                                let s:buf[s:nr].changed = 0
+                                let s:highlighted = 1
+                                call s:restore_marks()
+                                call winrestview(view)
+                              endif
+   29   0.039102   0.000757   let cmdl = s:evaluate_cmdl([a:cmdl])
+                            
+   29              0.000190   if s:buf[s:nr].duration < s:timeout
+                                " range preview
+   29              0.000335     if (!empty(cmdl.cmd.name) || s:buf[s:nr].show_range) && !get(s:, 'entire_file')
+    4   0.000223   0.000072       call s:highlight('Visual', cmdl.range.pattern, 100)
+    4              0.000018       if empty(cmdl.cmd.name)
+                                    call s:highlight('Search', cmdl.range.specifier, 101)
+                                  endif
+    4   0.000132   0.000087       call s:pos_range(cmdl.range.abs, cmdl.range.specifier)
+    4              0.000004     endif
+                            
+                                " cmd preview
+   29              0.000375     if cmdl.cmd.name =~# '\v^%(s%[ubstitute]|sm%[agic]|sno%[magic])$'
+                                  call s:live_substitute(cmdl)
+                                endif
+   29              0.000357     if cmdl.cmd.name =~# '\v^%(g%[lobal]\!=|v%[global])$'
+                                  call s:live_global(cmdl)
+                                endif
+                            
+                                " clear unnecessary hl
+   29              0.000252     if empty(cmdl.range.pattern) || get(s:, 'entire_file')
+   29   0.001716   0.000568       call s:highlight('Visual', '', 100)
+   29              0.000045     endif
+   29              0.000226     if empty(cmdl.cmd.name) && empty(cmdl.range.specifier)
+   25   0.001232   0.000367       call s:highlight('Search', '', 101)
+   25              0.000034     endif
+   29              0.000039   endif
+                            
+                              " move to starting position if necessary
+   29              0.000554   if !s:moved && winsaveview() != s:buf[s:nr].view && !wildmenumode()
+                                call winrestview(s:buf[s:nr].view)
+                              endif
+                            
+                              " update screen if necessary
+   29              0.000078   if s:highlighted
+                                if has('nvim')
+                                  redraw
+                                else
+                                  call winline()
+                                  " after patch 8.0.1449, necessary for linux cui, otherwise highlighting
+                                  " is not drawn properly, fixed by 8.0.1476
+                                  if has('unix') && !has('gui_running') && has("patch-8.0.1449") && !has("patch-8.0.1476")
+                                    silent! call feedkeys("\<left>\<right>", 'tn')
+                                  endif
+                                endif
+                              endif
+                            
+   29              0.000169   if exists('start_time')
+   29              0.000457     let s:buf[s:nr].duration = reltimefloat(reltime(start_time)) * 1000
+   29              0.000041   endif
+
+FUNCTION  <SNR>83_cmdl_enter()
+Called 2 times
+Total time:   0.000403
+ Self time:   0.000256
+
+count  total (s)   self (s)
+    2              0.000012   let s:buf[s:nr] = {}
+    2              0.000015   let s:buf[s:nr].view = winsaveview()
+    2              0.000008   let s:buf[s:nr].show_range = 0
+    2              0.000006   let s:buf[s:nr].duration = 0
+    2              0.000008   let s:buf[s:nr].hlsearch = &hlsearch
+    2              0.000041   let s:buf[s:nr].cword = expand('<cword>')
+    2              0.000029   let s:buf[s:nr].cWORD = expand('<cWORD>')
+    2              0.000068   let s:buf[s:nr].cfile = expand('<cfile>')
+    2              0.000021   let s:buf[s:nr].cur_init_pos = [line('.'), col('.')]
+    2   0.000185   0.000038   call s:save_marks()
+
+FUNCTION  <SNR>83_get_command()
+Called 29 times
+Total time:   0.007866
+ Self time:   0.006667
+
+count  total (s)   self (s)
+   29   0.001553   0.000441   call s:trim(a:cmdl)
+   29              0.000087   if !s:range_valid
+                                return ''
+                              endif
+   29              0.005324   let result = matchstrpos(a:cmdl[0], s:cmd_pattern)
+   29              0.000188   if result[2] != -1
+    4   0.000156   0.000069     call s:trim(a:cmdl, result[2])
+    4              0.000013     return result[0]
+                              endif
+   25              0.000052   return ''
+
+FUNCTION  <SNR>41_Highlight_Matching_Pair()
+Called 62 times
+Total time:   0.020846
+ Self time:   0.020846
+
+count  total (s)   self (s)
+                              " Remove any previous match.
+   62              0.000650   if exists('w:paren_hl_on') && w:paren_hl_on
+   10              0.000053     silent! call matchdelete(3)
+   10              0.000030     let w:paren_hl_on = 0
+   10              0.000012   endif
+                            
+                              " Avoid that we remove the popup menu.
+                              " Return when there are no colors (looks like the cursor jumps).
+   62              0.000758   if pumvisible() || (&t_Co < 8 && !has("gui_running"))
+                                return
+                              endif
+                            
+                              " Get the character under the cursor and check if it's in 'matchpairs'.
+   62              0.000278   let c_lnum = line('.')
+   62              0.000185   let c_col = col('.')
+   62              0.000093   let before = 0
+                            
+   62              0.000242   let text = getline(c_lnum)
+   62              0.001574   let matches = matchlist(text, '\(.\)\=\%'.c_col.'c\(.\=\)')
+   62              0.000212   if empty(matches)
+                                let [c_before, c] = ['', '']
+                              else
+   62              0.000397     let [c_before, c] = matches[1:2]
+   62              0.000070   endif
+   62              0.001129   let plist = split(&matchpairs, '.\zs[:,]')
+   62              0.000303   let i = index(plist, c)
+   62              0.000114   if i < 0
+                                " not found, in Insert mode try character before the cursor
+   52              0.000308     if c_col > 1 && (mode() == 'i' || mode() == 'R')
+                                  let before = strlen(c_before)
+                                  let c = c_before
+                                  let i = index(plist, c)
+                                endif
+   52              0.000066     if i < 0
+                                  " not found, nothing to do
+   52              0.000072       return
+                                endif
+                              endif
+                            
+                              " Figure out the arguments for searchpairpos().
+   10              0.000017   if i % 2 == 0
+    3              0.000006     let s_flags = 'nW'
+    3              0.000012     let c2 = plist[i + 1]
+    3              0.000003   else
+    7              0.000014     let s_flags = 'nbW'
+    7              0.000015     let c2 = c
+    7              0.000028     let c = plist[i - 1]
+    7              0.000005   endif
+   10              0.000023   if c == '['
+    7              0.000011     let c = '\['
+    7              0.000009     let c2 = '\]'
+    7              0.000009   endif
+                            
+                              " Find the match.  When it was just before the cursor move it there for a
+                              " moment.
+   10              0.000015   if before > 0
+                                let has_getcurpos = exists("*getcurpos")
+                                if has_getcurpos
+                                  " getcurpos() is more efficient but doesn't exist before 7.4.313.
+                                  let save_cursor = getcurpos()
+                                else
+                                  let save_cursor = winsaveview()
+                                endif
+                                call cursor(c_lnum, c_col - before)
+                              endif
+                            
+   10              0.000076   if !has("syntax") || !exists("g:syntax_on")
+                                let s_skip = "0"
+                              else
+                                " Build an expression that detects whether the current cursor position is
+                                " in certain syntax types (string, comment, etc.), for use as
+                                " searchpairpos()'s skip argument.
+                                " We match "escape" for special items, such as lispEscapeSpecial.
+   10              0.000057     let s_skip = '!empty(filter(map(synstack(line("."), col(".")), ''synIDattr(v:val, "name")''), ' . '''v:val =~? "string\\|character\\|singlequote\\|escape\\|comment"''))'
+                                " If executing the expression determines that the cursor is currently in
+                                " one of the syntax types, then we want searchpairpos() to find the pair
+                                " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+                                " outside of the syntax types and s_skip should keep its value so we skip
+                                " any matching pair inside the syntax types.
+                                " Catch if this throws E363: pattern uses more memory than 'maxmempattern'.
+   10              0.000014     try
+   10              0.005464       execute 'if ' . s_skip . ' | let s_skip = "0" | endif'
+   10              0.000023     catch /^Vim\%((\a\+)\)\=:E363/
+                                  " We won't find anything, so skip searching, should keep Vim responsive.
+                                  return
+                                endtry
+   10              0.000009   endif
+                            
+                              " Limit the search to lines visible in the window.
+   10              0.000046   let stoplinebottom = line('w$')
+   10              0.000034   let stoplinetop = line('w0')
+   10              0.000016   if i % 2 == 0
+    3              0.000008     let stopline = stoplinebottom
+    3              0.000003   else
+    7              0.000020     let stopline = stoplinetop
+    7              0.000006   endif
+                            
+                              " Limit the search time to 300 msec to avoid a hang on very long lines.
+                              " This fails when a timeout is not supported.
+   10              0.000048   if mode() == 'i' || mode() == 'R'
+                                let timeout = exists("b:matchparen_insert_timeout") ? b:matchparen_insert_timeout : g:matchparen_insert_timeout
+                              else
+   10              0.000061     let timeout = exists("b:matchparen_timeout") ? b:matchparen_timeout : g:matchparen_timeout
+   10              0.000010   endif
+   10              0.000011   try
+   10              0.004400     let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline, timeout)
+   10              0.000028   catch /E118/
+                                " Can't use the timeout, restrict the stopline a bit more to avoid taking
+                                " a long time on closed folds and long lines.
+                                " The "viewable" variables give a range in which we can scroll while
+                                " keeping the cursor at the same position.
+                                " adjustedScrolloff accounts for very large numbers of scrolloff.
+                                let adjustedScrolloff = min([&scrolloff, (line('w$') - line('w0')) / 2])
+                                let bottom_viewable = min([line('$'), c_lnum + &lines - adjustedScrolloff - 2])
+                                let top_viewable = max([1, c_lnum-&lines+adjustedScrolloff + 2])
+                                " one of these stoplines will be adjusted below, but the current values are
+                                " minimal boundaries within the current window
+                                if i % 2 == 0
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = min([line2byte("$"), line2byte(".") + col(".") + &smc * 2])
+                            	let stopline = min([bottom_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = min([bottom_viewable, c_lnum + 100])
+                                  endif
+                                  let stoplinebottom = stopline
+                                else
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = max([1, line2byte(".") + col(".") - &smc * 2])
+                            	let stopline = max([top_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = max([top_viewable, c_lnum - 100])
+                                  endif
+                                  let stoplinetop = stopline
+                                endif
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline)
+                              endtry
+                            
+   10              0.000020   if before > 0
+                                if has_getcurpos
+                                  call setpos('.', save_cursor)
+                                else
+                                  call winrestview(save_cursor)
+                                endif
+                              endif
+                            
+                              " If a match is found setup match highlighting.
+   10              0.000033   if m_lnum > 0 && m_lnum >= stoplinetop && m_lnum <= stoplinebottom 
+   10              0.000042     if exists('*matchaddpos')
+   10              0.000174       call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+   10              0.000008     else
+                                  exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) . 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+                                endif
+   10              0.000025     let w:paren_hl_on = 1
+   10              0.000010   endif
+
+FUNCTION  <SNR>83_add_flags()
+Called 29 times
+Total time:   0.000320
+ Self time:   0.000320
+
+count  total (s)   self (s)
+   29              0.000200   if !len(a:pattern)
+   29              0.000068     return ''
+                              endif
+                              if !s:range_valid
+                                return ''
+                              endif
+                              if !len(substitute(a:pattern, '\\[cCvVmM]', '', 'g'))
+                                return ''
+                              endif
+                            
+                              let option = ''
+                            
+                              " magic
+                              if has_key(a:cmdl, 'cmd') && a:cmdl.cmd.name =~# '\v^sm%[agic]$'
+                                let option = '\m'
+                              elseif  has_key(a:cmdl, 'cmd') && a:cmdl.cmd.name =~# '\v^sno%[magic]$'
+                                let option = '\M'
+                              elseif &magic
+                                let option = '\m'
+                              else
+                                let option = '\M'
+                              endif
+                            
+                              " case
+                              if &ignorecase
+                                if &smartcase
+                                  if match(a:pattern, '\u') ==# -1
+                                    let option .= '\c'
+                                  else
+                                    let option .= '\C'
+                                  endif
+                                else
+                                  let option .= '\c'
+                                endif
+                              endif
+                            
+                              if len(a:cmdl.range.abs) > 1
+                                let start = a:cmdl.range.abs[-2]
+                                let end   = a:cmdl.range.abs[-1]
+                                if end < start
+                                  let temp = start
+                                  let start = end
+                                  let end = temp
+                                endif
+                                let start = start - 1
+                                let end   = end + 1
+                              elseif len(a:cmdl.range.abs) == 1
+                                let start = a:cmdl.range.abs[-1] - 1
+                                let end   = a:cmdl.range.abs[-1] + 1
+                              elseif a:type ==# 1
+                                return option . a:pattern
+                              elseif a:type ==# 2
+                                let start = s:buf[s:nr].cur_init_pos[0] - 1
+                                let end   = s:buf[s:nr].cur_init_pos[0] + 1
+                              endif
+                            
+                              " range pattern specifer
+                              if a:type == 3
+                                let start = a:cmdl.range.abs[-1] - 1
+                                let end   = a:cmdl.range.abs[-1] + 1
+                              endif
+                            
+                              let range = '\m\%>'. start .'l' . '\%<' . end . 'l'
+                            
+                              " group is necessary to contain pattern inside range when using branches (\|)
+                              let group_start = '\%('
+                              let group_end   = '\m\)'
+                              " add backslash to the end of pattern if it ends with odd number of
+                              " backslashes, this is required to properly close group
+                              if len(matchstr(a:pattern, '\\\+$')) % 2
+                                let group_end = '\' . group_end
+                              endif
+                            
+                              return range . group_start . option . a:pattern . group_end
+
+FUNCTION  <SNR>83_pos_range()
+Called 4 times
+Total time:   0.000045
+ Self time:   0.000045
+
+count  total (s)   self (s)
+    4              0.000030   if g:traces_preserve_view_state || empty(a:range)
+    4              0.000007     return
+                              endif
+                              call cursor([a:range[-1], 1])
+                              if !empty(a:pattern)
+                                call search(a:pattern, 'c', a:range[-1], s:s_timeout)
+                              endif
+                              let s:moved = 1
+
+FUNCTION  <SNR>83_get_selection_regexp()
+Called 29 times
+Total time:   0.000522
+ Self time:   0.000522
+
+count  total (s)   self (s)
+   29              0.000385   if empty(a:range) || a:range[-1] > line('$') || !s:range_valid
+   29              0.000078     return ''
+                              endif
+                              if len(a:range) == 1
+                                let pattern = '\%' . a:range[0] . 'l'
+                              else
+                                let start = a:range[-2]
+                                let end = a:range[-1]
+                                if end < start
+                                  let temp = start
+                                  let start = end
+                                  let end = temp
+                                endif
+                                let start -= 1
+                                let end += 1
+                                let pattern = '\%>' . start . 'l\%<' . end . 'l'
+                              endif
+                              if &listchars =~# 'eol:.'
+                                let pattern .= '\_.'
+                              else
+                                let pattern .= '\(.\|^\)'
+                              endif
+                              return pattern
+
+FUNCTION  <SNR>27_t_stop()
+Called 2 times
+Total time:   0.000581
+ Self time:   0.000581
+
+count  total (s)   self (s)
+    2              0.000028   if exists('s:previous_cmdl')
+                                unlet s:previous_cmdl
+                              endif
+    2              0.000011   if exists('s:track_cmdl_timer')
+    2              0.000012     call timer_stop(s:track_cmdl_timer)
+    2              0.000008     unlet s:track_cmdl_timer
+    2              0.000004   endif
+    2              0.000012   if exists('s:start_init_timer')
+    2              0.000008     call timer_stop(s:start_init_timer)
+    2              0.000006     unlet s:start_init_timer
+    2              0.000002   endif
+    2              0.000011   augroup traces_augroup_cmdline_changed
+    2              0.000451     autocmd!
+    2              0.000005   augroup END
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+   29   0.054229   0.013272  traces#init()
+   29   0.038345   0.005001  <SNR>83_evaluate_cmdl()
+   62   0.020846             <SNR>41_Highlight_Matching_Pair()
+   29   0.016505   0.013229  <SNR>83_parse_range()
+   29   0.009909   0.002043  <SNR>83_parse_command()
+   29   0.007866   0.006667  <SNR>83_get_command()
+   29   0.006088             <SNR>83_evaluate_range()
+  120   0.004475             <SNR>83_trim()
+   29   0.002632             <SNR>27_cmdline_changed()
+   58   0.002164             <SNR>83_highlight()
+    2   0.000677   0.000568  <SNR>27_create_cmdl_changed_au()
+    2   0.000581             <SNR>27_t_stop()
+    2   0.000541             traces#cmdl_leave()
+   29   0.000522             <SNR>83_get_selection_regexp()
+    2   0.000403   0.000256  <SNR>83_cmdl_enter()
+   29   0.000320             <SNR>83_add_flags()
+    2   0.000147             <SNR>83_save_marks()
+    2   0.000111             <SNR>27_t_start()
+    4   0.000045             <SNR>83_pos_range()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+   62              0.020846  <SNR>41_Highlight_Matching_Pair()
+   29   0.054229   0.013272  traces#init()
+   29   0.016505   0.013229  <SNR>83_parse_range()
+   29   0.007866   0.006667  <SNR>83_get_command()
+   29              0.006088  <SNR>83_evaluate_range()
+   29   0.038345   0.005001  <SNR>83_evaluate_cmdl()
+  120              0.004475  <SNR>83_trim()
+   29              0.002632  <SNR>27_cmdline_changed()
+   58              0.002164  <SNR>83_highlight()
+   29   0.009909   0.002043  <SNR>83_parse_command()
+    2              0.000581  <SNR>27_t_stop()
+    2   0.000677   0.000568  <SNR>27_create_cmdl_changed_au()
+    2              0.000541  traces#cmdl_leave()
+   29              0.000522  <SNR>83_get_selection_regexp()
+   29              0.000320  <SNR>83_add_flags()
+    2   0.000403   0.000256  <SNR>83_cmdl_enter()
+    2              0.000147  <SNR>83_save_marks()
+    2              0.000111  <SNR>27_t_start()
+    4              0.000045  <SNR>83_pos_range()
+

@@ -492,6 +492,23 @@ kkkkkk
 \section{Lecture 8}{Problem Transformations}
 
 \subsection{Quiz}
+
+\begin{problem}{1}
+Polynomial Data Fitting
+If a first-degree polynomial x1+x2t is fit to the three data points (1,1), (2,1), (3,2), by linear least squares, what are the resulting values of the parameters x1 and x2?
+
+Choice*
+x1=1, x2=0
+x1=1/2, x2=1/2
+x1=1/3, x2=1/2
+x1=−1, x2=1
+\end{problem}
+\begin{solution}
+The solution is $\inv{(A^TA)}A^Tb$. Remember that the inverse of a general matrix is
+$x^2$.
+\end{solution}
+
+
 \begin{proposition}
     $k(A^TA) = k(A)^2$.
 \end{proposition}
@@ -531,10 +548,52 @@ kkkkkk
     Recall that a matrix is orthogonal iff its transpose is its inverse.
     This means that both the rows and columns of the matrix, say $Q$, constitute an orthonormal set: the vectors are pairwise orthonormal, and they each have unit length.
 \end{remark}
+\begin{remark}
+    Suppose that we obtain a system of the form:
+    \[
+        \begin{bmatrix}
+            R \\
+            0
+        \end{bmatrix} x = Q^Tb \coloneq \begin{bmatrix}
+            c_1 \\
+            c_2
+        \end{bmatrix}
+    \]
+
+    Then we can solve for $Rx = c_1$ if $R$ is invertible but not for $c_2$; as a consequence, the minimal norm that we can obtain when we ssolve this system is $c_2^2$.
+\end{remark}
+
 \begin{definition}
-    
+    A $QR$ factorization expresses an $m \times n$ matrix $A$ where $m \geq n$ as $QR$ where $Q$ is $m \times m$ and $R$ is $m \times n$. This often better expressed as 
+
+    \[
+        \begin{bmatrix}
+            Q_1 & Q_2
+        \end{bmatrix} \begin{bmatrix}
+            R \\
+            0
+        \end{bmatrix}
+    \]
+
+    where $Q_1$ is $m \times n$, $Q_2$ is $m \times (m-n)$; $R$ is $n \times n$ and $0$ represents a $(m-n) \times n$ block. The reduced $QR$ factorizaton is defined to be $Q_1 R$.
 \end{definition}
 
+\begin{remark}
+    A natural question raised is: what is the purpose of $Q_2$? $Q_2$ is the orthogonal complement of $Q_1$ -- it is sometimes helpful to remember this. Since there are many ways to identify the orthogonal complement of $Q_1$, $Q_2$ is not unique. It can be shown, however, that $Q_1R$ is unique if we force the diagonal entries of $R$ to be positive
+
+    $Q_1R$ is also unique up to multiplication of the diagonal entries of $R$ by $-1$ and corresponding multiplication of a column in $Q_1$ by $-1$ (in particular, if $R_{i,j}$ is multiplied by $-1$, then $R_{i,j'}$ for $j' \geq j$ must be multiplied by $-1$ and column $i$ of $Q_1$ must be multiplied by $-1$.
+\end{remark}
+
+\begin{remark}
+    Observe that many methods to compute a $QR$ factorization rely on forming $Q$ multiplying successive orthogonal matrices like
+
+
+    \[
+        Q_n Q_{n-1} \dots Q_{1}
+    \]
+
+    To obtain $Q$, we need to use all of the left factor. By this, I mean that if we compute $Q_2 Q_1$, then while we can drop columns of $Q_1$ past the $n$th column, we need to use all of $Q_2$ when performing the multiplication.
+\end{remark}<++>
 \section{Lecture 9}{Problem Transformations II -- February 5th}
 \begin{definition}
     Given a matrix $v$, a projection matrix onto span $v$ is $\frac{vv^T}{v^Tv}.$ This is unique, I think. In any case, this projection matrix is symmetric and satisfies $P^2 = P$, making it an orthogonal transformation.
@@ -559,7 +618,15 @@ kkkkkk
 \end{proof}
 
 \begin{proposition}
-    It can be shown that the vector $v$ which allows us to zero the last $m-k$ components of an $m$ vector $a$ where $1 \leq k < m$ is
+    It can be shown that the vector $v$ which allows us to zero the last $m-k$ components of an $m$ vector 
+    \[
+        a = \begin{bmatrix}
+            a_1 \\
+            a_2
+        \end{bmatrix}
+    \]
+    
+    where $a_1$ is $k-1$, $a_2$ is $m-k+1$ and $1 \leq k < m$ is
 
     \[
         \begin{bmatrix}
@@ -569,7 +636,86 @@ kkkkkk
     \]
 
     where $\alpha = -sign(a_k)\norm{a_2}_2$.
-\end{proposition}<++>
+
+    The choice in sign for $\alpha$ reflects our desire to avoid cancellation.
+\end{proposition}
+
+\begin{definition}
+    The matrix that rotates a vector $\theta$ degrees counter clockwise
+    in the $\R^2$ plane is 
+
+    \[
+        \begin{bmatrix}
+            \cos(\theta) & -\sin(\theta) \\
+            \sin(\theta) & \cos(\theta) \\
+        \end{bmatrix}
+    \]
+
+    Note that since $\sin$ is an odd function ($f(-x) = -f(x)$) and $\cos$ and even function ($f(-x) = f(x)$), it follows that the matrix rotating an angle $\theta$ degrees clockwise is
+    \[
+        \begin{bmatrix}
+            \cos(\theta) & \sin(\theta) \\
+            -\sin(\theta) & \cos(\theta) \\
+        \end{bmatrix}
+    \]
+
+\end{definition}
+
+\begin{remark}
+    We are interested in finding the angle $\theta$ and hence the value of $\cos(\theta)$ and $\sin(\theta)$ that solves the problem:
+
+    \[
+        \begin{bmatrix}
+            \cos(\theta) & \sin(\theta) \\
+            -\sin(\theta) & \cos(\theta) \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            a_1 \\
+            a_2 \\
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            \sqrt{a_1^2 + a_2^2} \\
+            0
+        \end{bmatrix}
+    \]
+
+    We will call the resulting matrix $M$ that performs the transformation.
+
+    Note that the answer to this question is
+
+    \[
+        c = \frac{a_1}{\sqrt{a_1^2 + a_2^2}}, s= \frac{a_2}{\sqrt{a_1^2 + a_2^2}}
+    \]
+
+    If we had instead solved (note the difference in the matrix $M$).
+    \[
+        \begin{bmatrix}
+            \cos(\theta) & -\sin(\theta) \\
+            \sin(\theta) & \cos(\theta) \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            a_1 \\
+            a_2 \\
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            \sqrt{a_1^2 + a_2^2} \\
+            0
+        \end{bmatrix}
+    \]
+
+    the resulting values of $c$ and $s$ would change, but that is okay -- so long as we redefine $M$ to be this matrix with the solved values for $c$ and $s$.
+\end{remark}
+
+\begin{remark}
+    Suppose that we wish to rotate the $b$ entry of some column onto the $a$ entry of the same column. Suppose that we have solved for the matrix $M$ that accomplishes this transformation where the $b$ entry is $a_2$ and the $a$ entry is $a_1$. Then we can construct a givens transformation:
+
+    A givens rotation imbeds $M$ into a matrix $A$ with ones (initially) along the diagonal so that $A_{a,a} = M_{0,0}$, $A_{a,b} = M_{0,1}$, $A_{b,a} = M_{1,0}$, $A_{b,b} = M_{1,1}$.
+\end{remark}
+
+
+
 
 
 \section{Lecture 10}{SVD}
@@ -603,7 +749,13 @@ kkkkkk
 \end{proposition}
 
 \begin{proof}
-    The inverse matrix will have all singular values of $A$ reciprocated.
+    Recall that we have redefined $k(A)$ to now be
+
+    \[
+        \norm{A} \norm{A^{+}}
+    \]
+
+    We have also found that $A^{+} = V \Sigma^{+} U^T$, from which it follows that $\norm{A^{+}}$ is the greatest diagonal entry of $\Sigma^{+}$ which is the reciprocal of the smallest diagonal entry in $\Sigma$.
 \end{proof}
 
 \begin{proposition}
@@ -612,6 +764,34 @@ kkkkkk
 \begin{proof}
     Let these rows be collected in the set $V$. We argue
     that $V \s \mc{N}(A)$. Just hit $A$ by each $v_i \in V$.
+
+    Recall that $A = U \Sigma V^T$ which is really (assuming that $A$ is an $m \times n$ matrix)
+
+
+    \[
+        \begin{bmatrix}
+            u_1 \dots u_n
+        \end{bmatrix} \begin{bmatrix}
+            \sigma_1 & \dots \\
+
+            & \sigma_2 \dots \\
+            & & \sigma_3 \dots \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            v_1^T \\
+            v_2^T \\
+            \vdots \\
+            v_n^T
+        \end{bmatrix}
+    \]
+
+    from which it follows that 
+
+    \[
+        A = \sum_{i=1}^{n}\sigma_{i} u_{i} v_{i}^T
+    \]
+
+    Recall that $V_{i}$ form an orthogonal basis for $\R^n$. Observe that $A v_{i}$ where $\sigma_{i} = 0$ results in $0$. On the other hand, $A v_{i}$ where $\sigma_{i} \not = 0$ is non-zero. Thus, we have determined which of a basis' vectors result in annihilation. This has determined the null space.
 \end{proof}
 
 \begin{proposition}
@@ -619,7 +799,11 @@ kkkkkk
     that are not zero.
 \end{proposition}
 \begin{proof}
-    $U$ and $V^T$ are full rank, so they cannot cause the rank to change. Only $\Sigma$ can.
+    \[
+        A = \sum_{i=1}^{n}\sigma_{i} u_{i} v_{i}^T
+    \]
+
+    tells us that to obtain any vector in the column space of $A$ we only need to have access to the $u_i$ such that $\sigma_i \not = 0$. However many $u_i$ exist is the rank of the matrix.
 \end{proof}
 
 \begin{remark}
@@ -638,6 +822,40 @@ kkkkkk
        $k$ diagonal entries of $\Sigma$ and then multiplying out
        $U \Sigma V^T$.
 \end{remark}
+
+\begin{proposition}
+In the circumstance that $A^TA$ is invertible, the inverse $\inv{(A^TA)}\inv{A}$ agrees with the inverse obtained from the SVD $V \Sigma^{+} U^T$.
+\end{proposition}
+\begin{proof}
+\begin{align*}
+    A = U \Sigma V^T \\
+    \implies \inv{(A^TA)}\inv{A} = \inv{(V \Sigma U^T U \Sigma V^T)} V \Sigma^{+} U \\
+    = V \Sigma^{+} U \\
+\end{align*}
+\end{proof}
+
+\begin{example}
+    To compute the pseudoinverse of a matrix like
+
+    \[
+        \begin{bmatrix}
+            a & & \\
+            & b &  \\
+            & & c \\
+            0 & 0 &0 \\
+        \end{bmatrix}
+    \]
+
+    the foregoing establishes that we need not compute the SVD and then obtain the pseudoinverse by re-arranging the resultant factors. We can compute the SVD by also computing $\inv(A^TA)A^T$ which, in this case, gives us
+    \[
+        \begin{bmatrix}
+            1/a & & \\
+            & 1/b &  \\
+            & & 1/c \\
+            0 & 0 &0 \\
+        \end{bmatrix}
+    \]
+\end{example}
 
 \begin{remark}
     Using a $k$ rank approximation is not unambiguously good, for computation of the SVD requires $O(n^3)$ time.
