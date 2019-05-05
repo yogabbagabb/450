@@ -51,6 +51,90 @@
     \end{align*}
     which is a system of $kn$ first order equations (here, realize that $u_k$ is a vector in $\R^n$).
 \end{remark}
+
+\begin{remark}
+    We can numerically solve for an ordinary differential equation $y' = f(t,y)$ by first making the following approximation:
+
+    \begin{align*}
+        \text{Let} \\
+        y_0 = \text{ The initial position} \\
+        t_0 = \text{ The initial time} \\
+        h_0 = \text{ The distance between $t_0$ and $t_1$} \\
+        \intertext{In some sense, the slope at time $t_0$ is given by} \\
+        f(t_0, y_0) \\
+        \text{Approximate} \\
+        y_1 = y_0 + h_0f(t_0, y_0) \\
+    \end{align*}
+
+
+    Note that this approximation can also be understood as a difference quotient:
+
+    \[
+        \frac{y_{k+1} - y_{k}}{h_k} = f(t_k, y_k)
+    \]
+\end{remark}
+
+\begin{remark}
+    The equation $y' = f(y,t)$ by itself doe snot completely specify the solution $y$. For the ODE merely specifies the slope of a solution and, thus, there are in principle an infinite number of solutions to it. We can often constrain the class of solutions to a unique solution, however, if we additionally maintain the solution must satisfy an initial condition $(t_0, y_0)$. Note, however, that this is merely a necessary condition and not a sufficient one for the solution to an ODE to be unique..
+\end{remark}<++>
+\begin{definition}
+    Suppose that we are presented with the ODE $y' = f(t,y)$ with intiial conditions $(t_0, y_0)$. SUppose that $\hat{y}(t)$ is a solution to the ODE. Then we say that $\hat{y}(t)$ is a stable solution if it holds that for every $\e$ there exists some $\delta$ such that whenever $\abs{\hat{y}(t_0) - \tilde{y}(t_0)} \leq \delta$ where $\tilde{y}$ is some other solution, then $\abs{\tilde{y}(t) - \hat{y}(t)} \leq \e$ for all $t \geq t_0$. We say that $\tilde{y}$ is asymptotically stable if $\abs{\tilde{y}(t) - \hat{y}(t)} \leq 0$ as $t \to \infty$.
+\end{definition}<++>
+\section{Lecture 26}
+
+
+\begin{definition}
+    Let $t_k$ be some time at iteration $k$. Let $y_k$ be the computed solution at $t_k$. Let $y(t_k)$ be the true solution of hte ODE (given initial conditions $y_0, t_0$). Then
+
+    global error is the error that we've made in an unforgiving sense: it $e_k \coloneq y_k - y(t_k)$. \\
+
+    By contrast, local error is the error that we make at iteration $k$ assuming that our guess at iteration $k-1$ was accurate. That is, we let $l_k \coloneq y_k - u_{k-t}(t_k)$ where $u_k$ is the solution to the ODE with initial conditions given by $(t_{k-1}, y_{k-1})$.
+\end{definition}
+
+\section{Lecture 28}
+
+
+\begin{definition}
+
+    A boundary value problem is of the form
+
+    \[
+        u'(x) = f(u(x))
+    \]
+
+    and $g(u(a), u(b)) = 0$ is the boundary condition.
+
+    where $u: [a,b] \to \R^n$ 
+\end{definition}
+
+
+\begin{remark}
+    A boundary value problem has a solution (it is hinted in lecture) if the IVP
+    \[
+        u'(x) = f(u(x))
+    \]
+
+    with initial condition $(t_0, e_i)$
+
+    is solveable for all unit vectors.
+    
+\end{remark}
+
+\begin{definition}
+    The shooting method does the following:
+
+    Suppose that we're handed 
+
+    \begin{align}
+        u''(x) = f(u(x)) \\
+        u(a) = \text{ some vector } \\
+        u(b) = \text{ some vector } \\
+    \end{align}
+
+    Then we will set $u'(a)$ to a random value and check to see whether
+    the resulting IVP gives a solution that matches the value of $u(b)$ above.
+\end{definition}
+
 \end{document}
 
 

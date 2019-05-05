@@ -254,9 +254,6 @@ Solve for $a_0$ and $a_1$
 
 %Fuck it's just the average: Indeed , using the found coefficients above
 will give us an ouput that is less than $f(41.08)$.
-\[
-    
-\]
 
 Suppose that we estimate a function using linear interpolation. The error is then bounded by:
 
@@ -310,7 +307,7 @@ where we assume that $f^{n}(x) \leq M$ for all $x \in I$ and $C$ is some constan
         \3 For cubic splines, there are $4N$ unknowns
         \2 This gives us two equations for one interval.
         \3 In total, there fore we have $2N$ equations here.
-        \1 Add some smoothness conditions -- ie the derivative of the polynomial in one interval must agree with the derivative in the next interval and we get more equations. Make this hold with respect to second derivatives as well.
+        \1 Add some smoothness conditions; ie the derivative of the polynomial in one interval must agree with the derivative in the next interval and we get more equations. Make this hold with respect to second derivatives as well.
         \2 This gives us $2(N-1)$ equations.
         \3 Finally require that the second derivatives be zero at each of the endpoints.
         \4 This gives us $2$ equations.
